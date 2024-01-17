@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using QuestionsAndAnswers.Data;
+
 var builder = WebApplication.CreateBuilder(args);
+
 builder.Services.AddDbContext<QuestionsAndAnswersContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("QuestionsAndAnswersContext") ?? throw new InvalidOperationException("Connection string 'QuestionsAndAnswersContext' not found.")));
 
