@@ -6,7 +6,7 @@ namespace QuestionsAndAnswers.Models
     {
         public long Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Required")]
         [StringLength(maximumLength: 60, MinimumLength = 3)]
         public string Title { get; set; } = string.Empty;
 
