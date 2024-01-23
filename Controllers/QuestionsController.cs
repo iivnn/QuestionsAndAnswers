@@ -1,28 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QuestionsAndAnswers.Data;
 using QuestionsAndAnswers.Models;
+using QuestionsAndAnswers.Models.ViewModels;
+using QuestionsAndAnswers.Services;
 
 namespace QuestionsAndAnswers.Controllers
 {
     public class QuestionsController : Controller
     {
         private readonly QuestionsAndAnswersContext _context;
+        private readonly QuestionsService _questionsService;
 
-        public QuestionsController(QuestionsAndAnswersContext context)
+        public QuestionsController(QuestionsAndAnswersContext context, QuestionsService questionsService)
         {
             _context = context;
+            _questionsService = questionsService;
         }
 
         // GET: Questions
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string title)
         {
-            return View(await _context.Question.ToListAsync());
+            var questions = await _questionsService.SelectByTitleAsync(title);
+
+            var viewModel = new QuestionViewModel()
+            {
+                TitleSearchString = title,
+                Questions = questions.ToList()
+            };
+
+            return View(viewModel);
         }
 
         // GET: Questions/Details/5
