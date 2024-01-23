@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using QuestionsAndAnswers.Data;
 using QuestionsAndAnswers.Resources;
+using QuestionsAndAnswers.Services;
 using System.Globalization;
 using System.Reflection;
 
@@ -37,6 +38,8 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
     options.RequestCultureProviders.Add(new CookieRequestCultureProvider());
     options.RequestCultureProviders.Add(new AcceptLanguageHeaderRequestCultureProvider());
 });
+
+builder.Services.AddScoped(typeof(QuestionsService));
 
 var app = builder.Build();
 

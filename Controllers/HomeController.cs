@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
-using QuestionsAndAnswers.Models;
+using QuestionsAndAnswers.Models.ViewModels;
 using System.Diagnostics;
 
 namespace QuestionsAndAnswers.Controllers
