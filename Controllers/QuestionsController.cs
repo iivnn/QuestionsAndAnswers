@@ -160,5 +160,7 @@ namespace QuestionsAndAnswers.Controllers
         {
             return _context.Question.Any(e => e.Id == id);
         }
+
+        public IActionResult GetPartial() => PartialView("_PartialExample");
     }
 }

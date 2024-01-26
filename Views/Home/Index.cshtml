@@ -4,6 +4,9 @@
 @{
     ViewData["Title"] = Localizer["PageTitle"];
 }
+
+@await Html.PartialAsync("_PartialExample", new { Argument = "Argument" })
+
 <div class="text-center">
     <h1 class="display-4">@Localizer["GreetingMessage"]</h1>
 </div>
