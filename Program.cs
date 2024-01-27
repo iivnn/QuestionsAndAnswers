@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Localization;
+﻿using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using QuestionsAndAnswers.Data;
+using QuestionsAndAnswers.Handlers;
 using QuestionsAndAnswers.Resources;
 using QuestionsAndAnswers.Services;
 using System.Globalization;
@@ -11,10 +11,10 @@ using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add services to the container.
 builder.Services.AddDbContext<QuestionsAndAnswersContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("QuestionsAndAnswersContext") ?? throw new InvalidOperationException("Connection string 'QuestionsAndAnswersContext' not found.")));
 
-// Add services to the container.
 builder.Services.AddControllersWithViews()
     .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
     .AddDataAnnotationsLocalization(options =>
@@ -39,14 +39,14 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
     options.RequestCultureProviders.Add(new AcceptLanguageHeaderRequestCultureProvider());
 });
 
+builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 builder.Services.AddScoped(typeof(QuestionsService));
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Home/Error");
+{   
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
@@ -56,6 +56,8 @@ app.UseStaticFiles();
 app.UseRequestLocalization((app.Services.GetService<IOptions<RequestLocalizationOptions>>() ?? throw new InvalidOperationException("'RequestLocalizationOptions' was null.")).Value);
 app.UseRouting();
 app.UseAuthorization();
+app.UseStatusCodePagesWithRedirects("/PageNotFound/{0}");
+app.UseExceptionHandler("/Home/Error");
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
