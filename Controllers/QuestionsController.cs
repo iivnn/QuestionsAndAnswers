@@ -21,11 +21,11 @@ namespace QuestionsAndAnswers.Controllers
         // GET: Questions
         public async Task<IActionResult> Index(string title)
         {
+            @ViewData["SearchString"] = title;
             var questions = await _questionsService.SelectByTitleAsync(title);
 
             var viewModel = new QuestionViewModel()
             {
-                TitleSearchString = title,
                 Questions = questions.ToList()
             };
 
