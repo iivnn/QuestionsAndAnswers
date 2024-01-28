@@ -1,6 +1,6 @@
-namespace QuestionsAndAnswers.Models
+namespace QuestionsAndAnswers.Models.ViewModels
 {
-    public class ErrorViewModel
+    public record ErrorViewModel
     {
         public string? RequestId { get; set; }
 

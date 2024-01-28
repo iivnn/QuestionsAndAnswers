@@ -1,4 +1,4 @@
-﻿@model IEnumerable<QuestionsAndAnswers.Models.Question>
+﻿@model QuestionsAndAnswers.Models.ViewModels.QuestionViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -9,26 +9,27 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                @Html.DisplayNameFor(model => model.Questions[0].Title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                @Html.DisplayNameFor(model => model.Questions[0].Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.InsertedAt)
+                @Html.DisplayNameFor(model => model.Questions[0].InsertedAt)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.UpdatedAt)
+                @Html.DisplayNameFor(model => model.Questions[0].UpdatedAt)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.Questions) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)

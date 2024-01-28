@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
-using QuestionsAndAnswers.Models;
+using QuestionsAndAnswers.Models.ViewModels;
 using System.Diagnostics;
 
 namespace QuestionsAndAnswers.Controllers
@@ -34,6 +34,12 @@ namespace QuestionsAndAnswers.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [Route("/PageNotFound/{id?}")]
+        public IActionResult PageNotFound(string id)
+        {
+            return View();
         }
     }
 }

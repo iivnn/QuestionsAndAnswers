@@ -1,0 +1,9 @@
+﻿@inject IViewLocalizer Localizer
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@{
+    ViewData["Title"] = "Page not found";
+}
+<h1>@Localizer["PageNotFoundTitle"]</h1>
+
+<p>@Localizer["PageNotFoundText"]</p>
