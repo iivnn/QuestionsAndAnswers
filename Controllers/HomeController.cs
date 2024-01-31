@@ -20,8 +20,6 @@ namespace QuestionsAndAnswers.Controllers
 
         public IActionResult Index()
         {
-            string message = _stringLocalizer["GreetingMessage"].Value;
-            ViewData["Title"] = message;
             return View();
         }
 
