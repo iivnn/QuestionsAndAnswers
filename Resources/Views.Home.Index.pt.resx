@@ -117,10 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="GreetingMessage" xml:space="preserve">
-    <value>Opa, eae</value>
+  <data name="Find" xml:space="preserve">
+    <value>Encontre as melhores resposta para as suas perguntas e ajude outras pessoas a responder as suas.</value>
+  </data>
+  <data name="Join" xml:space="preserve">
+    <value>Junte-se à comunidade</value>
   </data>
   <data name="PageTitle" xml:space="preserve">
-    <value>Titulo</value>
+    <value>Página inicial</value>
+  </data>
+  <data name="QA" xml:space="preserve">
+    <value>Perguntas e respostas</value>
+  </data>
+  <data name="Questions" xml:space="preserve">
+    <value>Dê vida às suas dúvidas e encontre soluções fascinantes em nossa plataforma de perguntas e respostas.</value>
+  </data>
+  <data name="QuestionsButton" xml:space="preserve">
+    <value>Pesquisar conteúdo</value>
+  </data>
+  <data name="QuestionsTitle" xml:space="preserve">
+    <value>Explore, questione, aprenda e compartilhe</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Clique nas tags e descubra os elos entre suas perguntas e um vasto conjunto de tópicos relacionados. A jornada pela sabedoria está apenas a um clique de distância!</value>
+  </data>
+  <data name="TagsButton" xml:space="preserve">
+    <value>Tags</value>
+  </data>
+  <data name="TagsTitle" xml:space="preserve">
+    <value>Cada clique revela um universo de tópicos</value>
   </data>
 </root>

@@ -117,10 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="GreetingMessage" xml:space="preserve">
-    <value>Hello there!</value>
+  <data name="Find" xml:space="preserve">
+    <value>Find the best answer to your technical question, help others answer theirs.</value>
+  </data>
+  <data name="Join" xml:space="preserve">
+    <value>Join the community</value>
   </data>
   <data name="PageTitle" xml:space="preserve">
-    <value>Title</value>
+    <value>Home</value>
+  </data>
+  <data name="QA" xml:space="preserve">
+    <value>Questions and answers</value>
+  </data>
+  <data name="Questions" xml:space="preserve">
+    <value>Bring your questions to life and find fascinating solutions on our Questions ans Answers platform.</value>
+  </data>
+  <data name="QuestionsButton" xml:space="preserve">
+    <value>Search content</value>
+  </data>
+  <data name="QuestionsTitle" xml:space="preserve">
+    <value>Explore, question, learn and share</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Click on the tags and discover the links between your questions and a wide range of related topics. The journey to wisdom is just a click away!</value>
+  </data>
+  <data name="TagsButton" xml:space="preserve">
+    <value>Tags</value>
+  </data>
+  <data name="TagsTitle" xml:space="preserve">
+    <value>Each click reveals a universe of topics</value>
   </data>
 </root>
