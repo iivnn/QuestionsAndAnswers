@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,14 +8,17 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/QuestionsAndAnswers.styles.css" asp-append-version="true" />
 </head>
-<body data-bs-theme="dark">
-    <header class="border-bottom fixed-top">
-        @await Html.PartialAsync("_NavBar")
-    </header>
+<body>
+
+    @await Html.PartialAsync("_NavBar")
 
     <main role="main">
-        @RenderBody()
+        <div class="container main">
+            @RenderBody()
+        </div>
     </main>
+
+    @await Html.PartialAsync("_Footer")
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
