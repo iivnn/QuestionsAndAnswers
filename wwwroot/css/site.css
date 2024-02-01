@@ -8,12 +8,10 @@ html {
   }
 }
 
-html {
-  position: relative;
-  min-height: 100%;
+.vh-80 {
+    height: 80vh !important;
 }
 
-body {
-    margin-bottom: 60px;
+.main {
+    min-height: 88vh !important;
 }
-

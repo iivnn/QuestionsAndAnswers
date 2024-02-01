@@ -5,9 +5,29 @@
     ViewData["Title"] = Localizer["PageTitle"];
 }
 
-@await Html.PartialAsync("_PartialExample", new { Argument = "Argument" })
-
-<div class="text-center">
-    <h1 class="display-4">@Localizer["GreetingMessage"]</h1>
+<div class="container pt-4 mb-5">
+    <div class="p-5 mb-4 bg-body-tertiary rounded-3 mt-5">
+        <div class="container-fluid py-5">
+            <h1 class="display-5 fw-bold">@Localizer["QA"]</h1>
+            <p class="col-md-8 fs-4">@Localizer["Find"]</p>
+            <button class="btn btn-primary btn-lg" type="button">@Localizer["Join"]</button>
+        </div>
+    </div>
+    <div class="row align-items-md-stretch pb-4">
+        <div class="col-md-6">
+            <div class="h-100 p-5 text-bg-dark rounded-3">
+                <h2>@Localizer["QuestionsTitle"]</h2>
+                <p>@Localizer["Questions"]</p>
+                <button class="btn btn-outline-light" type="button">@Localizer["QuestionsButton"]</button>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="h-100 p-4 bg-body-tertiary border rounded-3">
+                <h2>@Localizer["TagsTitle"]</h2>
+                <p>@Localizer["Tags"]</p>
+                <button class="btn btn-outline-secondary" type="button">@Localizer["TagsButton"]</button>
+            </div>
+        </div>
+    </div>
 </div>
 
