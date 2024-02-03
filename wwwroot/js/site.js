@@ -24,12 +24,27 @@
         return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
     }
 
+    const changeLoginButtonClass = (theme) => {
+        if (theme == 'dark') {
+            var button = document.getElementById('LoginButton')
+            button.classList.remove('btn-dark');
+            button.classList.add('btn-light');
+        }
+        else {
+            var button = document.getElementById('LoginButton');
+            button.classList.remove('btn-light');
+            button.classList.add('btn-dark');
+        }
+    }
+
     const setTheme = theme => {
         if (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
             document.documentElement.setAttribute('data-bs-theme', 'dark')
         } else {
             document.documentElement.setAttribute('data-bs-theme', theme)
         }
+
+        changeLoginButtonClass(theme);
     }
 
     setTheme(getPreferredTheme())

@@ -57,7 +57,7 @@ app.UseRequestLocalization((app.Services.GetService<IOptions<RequestLocalization
 app.UseRouting();
 app.UseAuthorization();
 app.UseStatusCodePagesWithRedirects("/PageNotFound/{0}");
-app.UseExceptionHandler("/Home/Error");
+app.UseExceptionHandler("/InternalError");
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
