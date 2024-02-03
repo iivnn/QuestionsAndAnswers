@@ -25,7 +25,7 @@
     }
 
     const changeLoginButtonClass = (theme) => {
-        if (theme == 'dark') {
+        if (theme == 'dark' || theme == 'auto') {
             var button = document.getElementById('LoginButton')
             button.classList.remove('btn-dark');
             button.classList.add('btn-light');
