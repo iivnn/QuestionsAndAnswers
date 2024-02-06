@@ -1,0 +1,100 @@
+﻿@inject IViewLocalizer Localizer
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@{
+    ViewData["Title"] = Localizer["PageTitle"];
+}
+<div class="m-auto text-center" style="max-width: 900px; margin-top: 80px !important">
+    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-person-raised-hand mt-3" viewBox="0 0 16 16">
+        <path d="M6 6.207v9.043a.75.75 0 0 0 1.5 0V10.5a.5.5 0 0 1 1 0v4.75a.75.75 0 0 0 1.5 0v-8.5a.25.25 0 1 1 .5 0v2.5a.75.75 0 0 0 1.5 0V6.5a3 3 0 0 0-3-3H6.236a1 1 0 0 1-.447-.106l-.33-.165A.83.83 0 0 1 5 2.488V.75a.75.75 0 0 0-1.5 0v2.083c0 .715.404 1.37 1.044 1.689L5.5 5c.32.32.5.754.5 1.207" />
+        <path d="M8 3a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3" />
+    </svg>
+    <h5 class="card-title">Join the community</h5>
+    <h6 class="card-subtitle mb-5 text-body-secondary">Find the best answer to your technical question, help others answer theirs.</h6>
+    <div class="card">
+        <div class="card-body text-center">
+            <form class="text-start px-lg-5">
+                <div class="row mb-3">
+                    <div class="text-center">
+                        <img src="~/images/user.jpg" id="selectedImage" class="rounded-circle img-thumbnail mb-4 image-profile" alt="Profile Image">
+                    </div>
+                    <label for="inputPassword3" class="col-sm-2 col-form-label">Profile image</label>
+                    <div class="col-sm-10">
+                        <input class="form-control" type="file" id="fileInput">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control" id="inputEmail3">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" id="inputPassword3">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="inputPassword3" class="col-sm-2 col-form-label">Nickname</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="nickName">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="inputPassword3" class="col-sm-2 col-form-label">About me</label>
+                    <div class="col-sm-10">
+
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Tags</label>
+                    <div class="col-sm-10">
+
+                        <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off">
+                        <label class="btn btn-outline mb-2" for="btn-check-outlined" style="color: mediumpurple">C#</label>
+
+                        <input type="checkbox" class="btn-check" id="btn-check-outlined1" autocomplete="off">
+                        <label class="btn btn-outline mb-2" for="btn-check-outlined1" style="color: yellow">javascript</label>
+
+                        <input type="checkbox" class="btn-check" id="btn-check-outlined2" autocomplete="off">
+                        <label class="btn btn-outline mb-2" for="btn-check-outlined2" style="color: dodgerblue">typescript</label>
+
+                        <input type="checkbox" class="btn-check" id="btn-check-outlined3" autocomplete="off">
+                        <label class="btn btn-outline mb-2" for="btn-check-outlined3" style="color: deepskyblue">go</label>
+
+                        <input type="checkbox" class="btn-check" id="btn-check-outlined4" autocomplete="off">
+                        <label class="btn btn-outline mb-2" for="btn-check-outlined4" style="color: darkorange">swift</label>
+
+                        <input type="checkbox" class="btn-check" id="btn-check-2-outlined5" checked autocomplete="off">
+                        <label class="btn btn-outline mb-2" for="btn-check-2-outlined5" style="color: orange">java</label>
+
+                        <input type="checkbox" class="btn-check" id="btn-check-outlined6" autocomplete="off">
+                        <label class="btn btn-outline mb-2" for="btn-check-outlined6" style="color: mediumpurple">C#</label>
+
+                        <input type="checkbox" class="btn-check" id="btn-check-outlined7" autocomplete="off">
+                        <label class="btn btn-outline mb-2" for="btn-check-outlined7" style="color: yellow">javascript</label>
+
+                        <input type="checkbox" class="btn-check" id="btn-check-outlined8" autocomplete="off">
+                        <label class="btn btn-outline mb-2" for="btn-check-outlined8" style="color: dodgerblue">typescript</label>
+
+                        <input type="checkbox" class="btn-check" id="btn-check-outlined9" autocomplete="off">
+                        <label class="btn btn-outline mb-2" for="btn-check-outlined9" style="color: deepskyblue">go</label>
+
+                        <input type="checkbox" class="btn-check" id="btn-check-outlined10" autocomplete="off">
+                        <label class="btn btn-outline mb-2" for="btn-check-outlined10" style="color: darkorange">swift</label>
+
+                        <input type="checkbox" class="btn-check" id="btn-check-2-outlined11" checked autocomplete="off">
+                        <label class="btn btn-outline mb-2" for="btn-check-2-outlined11" style="color: orange">java</label>
+                    </div>
+                </div>
+
+
+
+                <button type="submit" class="btn btn-primary mt-3">Sign up</button>
+            </form>
+        </div>
+    </div>
+</div>
+

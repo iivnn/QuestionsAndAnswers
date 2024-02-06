@@ -45,10 +45,12 @@
                 <form asp-controller="Questions" asp-action="Index" method="get" class="d-flex me-2" role="search">
                     <input name="title" value="@ViewData["SearchString"]" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 </form>
+                <div class="d-flex mt-lg-0 mt-2 me-2">
+                    <a id="LoginButton" asp-area="" asp-controller="Home" asp-action="Login" role="button" class="btn me-2">@Localizer["Login"]</a>
+                    <a type="button" asp-area="" asp-controller="Home" asp-action="SignUp" class="btn btn-warning">@Localizer["Sign-up"]</a>
+                </div>
                 <div class="d-flex mt-lg-0 mt-2">
-                    <button type="button" class="btn btn-light me-2">@Localizer["Login"]</button>
-                    <button type="button" class="btn btn-warning">@Localizer["Sign-up"]</button>
-                    <div class="nav-item dropdown ms-3">
+                    <div class="nav-item dropdown">
                         <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
                             <symbol id="circle-half" viewBox="0 0 16 16" style="filter: invert(66%) sepia(5%) saturate(25%) hue-rotate(51deg) brightness(92%) contrast(90%);">
                                 <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"></path>
