@@ -98,3 +98,19 @@
             })
     })
 })()
+
+document.getElementById('fileInput').addEventListener('change', function (event) {
+    var selectedFile = event.target.files[0];
+
+    if (selectedFile) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            var imageElement = document.getElementById('selectedImage');
+            imageElement.src = e.target.result;
+        };
+
+        reader.readAsDataURL(selectedFile);
+    }
+});
+
