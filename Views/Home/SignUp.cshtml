@@ -1,5 +1,6 @@
 ﻿@inject IViewLocalizer Localizer
 @using Microsoft.AspNetCore.Mvc.Localization
+@model QuestionsAndAnswers.Models.ViewModels.SignUpViewModel
 
 @{
     ViewData["Title"] = Localizer["PageTitle"];
@@ -13,7 +14,7 @@
     <h6 class="card-subtitle mb-5 text-body-secondary">@Localizer["Find"]</h6>
     <div class="card">
         <div class="card-body text-center">
-            <form class="text-start px-lg-5">
+            <form asp-action="SignUp" class="text-start px-lg-5">
                 <div class="row mb-3">
                     <div class="text-center">
                         <img src="~/images/user.jpg" id="selectedImage" class="rounded-circle img-thumbnail mb-4 image-profile" alt="Profile Image">
@@ -26,13 +27,13 @@
                 <div class="row mb-3">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">@Localizer["Email"]</label>
                     <div class="col-sm-10">
-                        <input type="email" class="form-control" id="inputEmail3">
+                        <input type="email" asp-for="Email" class="form-control" id="inputEmail3">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label for="inputPassword3" class="col-sm-2 col-form-label">@Localizer["Password"]</label>
                     <div class="col-sm-10">
-                        <input type="password" class="form-control" id="inputPassword3">
+                        <input type="password" asp-for="Password" class="form-control" id="inputPassword3">
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -89,7 +90,7 @@
                         <label class="btn btn-outline mb-2" for="btn-check-2-outlined11" style="color: orange">java</label>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary mt-3 justify-content-end">@Localizer["Sign"]</button>
+                <button type="submit" value="SignUp" class="btn btn-primary mt-3 justify-content-end">@Localizer["Sign"]</button>
             </form>
         </div>
     </div>

@@ -1,19 +1,19 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using QuestionsAndAnswers.Models;
 
 namespace QuestionsAndAnswers.Data
 {
-    public class QuestionsAndAnswersContext : DbContext
+    public class QuestionsAndAnswersContext : IdentityDbContext<User>
     {
         public QuestionsAndAnswersContext(DbContextOptions<QuestionsAndAnswersContext> options)
             : base(options)
         {
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder builder)
         {
-            modelBuilder.Entity<User>()
+            builder.Entity<User>()
                 .HasMany(e => e.Tags)
                 .WithMany()
                 .UsingEntity(j =>
@@ -25,7 +25,7 @@ namespace QuestionsAndAnswers.Data
                 .Property(b => b.CreatedAt)
                 .HasDefaultValueSql("getdate()");
 
-            modelBuilder.Entity<Question>()
+            builder.Entity<Question>()
                 .HasMany(e => e.Tags)
                 .WithMany(t => t.Questions)
                 .UsingEntity(j =>
@@ -37,9 +37,11 @@ namespace QuestionsAndAnswers.Data
                 .Property(b => b.CreatedAt)
                 .HasDefaultValueSql("getdate()");
 
-            modelBuilder.Entity<Tag>()
+            builder.Entity<Tag>()
                 .Property(b => b.CreatedAt)
                 .HasDefaultValueSql("getdate()");
+
+            base.OnModelCreating(builder);
         }
 
         public DbSet<User> User { get; set; } = default!;

@@ -1,17 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace QuestionsAndAnswers.Models
 {
-    public class User
+    public class User : IdentityUser
     {
-        public Guid Id { get; set; } = Guid.Empty;
-        [Required, EmailAddress]
-        public string Email { get; set; } = string.Empty;
-        [Required]
-        public string Password { get; set; } = string.Empty;
-        [Required, MaxLength(30)]
-        public string Nickname { get; set; } = string.Empty;
         [Required, MaxLength(500)]
         public string About { get; set; } = string.Empty;
         public string ImageLink { get; set; } = string.Empty;
