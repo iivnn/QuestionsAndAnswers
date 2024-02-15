@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -8,12 +8,17 @@ using QuestionsAndAnswers.Resources;
 using QuestionsAndAnswers.Services;
 using System.Globalization;
 using System.Reflection;
+using QuestionsAndAnswers.Models;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddDbContext<QuestionsAndAnswersContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("QuestionsAndAnswersContext") ?? throw new InvalidOperationException("Connection string 'QuestionsAndAnswersContext' not found.")));
+
+builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<QuestionsAndAnswersContext>().AddDefaultTokenProviders();
 
 builder.Services.AddControllersWithViews()
     .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
@@ -42,6 +47,38 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 builder.Services.AddScoped(typeof(QuestionsService));
 
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    // Password settings.
+    options.Password.RequireDigit = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequiredLength = 6;
+    options.Password.RequiredUniqueChars = 1;
+
+    // Lockout settings.
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+    options.Lockout.MaxFailedAccessAttempts = 5;
+    options.Lockout.AllowedForNewUsers = true;
+
+    // User settings.
+    options.User.AllowedUserNameCharacters =
+    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+    options.User.RequireUniqueEmail = false;
+});
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    // Cookie settings
+    options.Cookie.HttpOnly = true;
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+
+    //options.LoginPath = "/Identity/Account/Login";
+    //options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+    options.SlidingExpiration = true;
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -55,6 +92,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRequestLocalization((app.Services.GetService<IOptions<RequestLocalizationOptions>>() ?? throw new InvalidOperationException("'RequestLocalizationOptions' was null.")).Value);
 app.UseRouting();
+app.UseAuthentication();
 app.UseAuthorization();
 app.UseStatusCodePagesWithRedirects("/PageNotFound/{0}");
 app.UseExceptionHandler("/InternalError");

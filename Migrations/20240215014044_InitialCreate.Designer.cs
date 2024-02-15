@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QuestionsAndAnswers.Data;
 
@@ -11,9 +12,11 @@ using QuestionsAndAnswers.Data;
 namespace QuestionsAndAnswers.Migrations
 {
     [DbContext(typeof(QuestionsAndAnswersContext))]
-    partial class QuestionsAndAnswersContextModelSnapshot : ModelSnapshot
+    [Migration("20240215014044_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
