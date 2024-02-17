@@ -13,14 +13,10 @@ namespace QuestionsAndAnswers.Services
             _context = context;
         }
 
-        public IEnumerable<Question> SelectByTitle(string title)
-        {
-            return _context.Question.Where(x => string.IsNullOrEmpty(title) || x.Title == title).ToList();
-        }
-
         public async Task<IEnumerable<Question>> SelectByTitleAsync(string title)
         {
-            return await _context.Question.Where(x => string.IsNullOrEmpty(title) || x.Title.Contains(title)).ToListAsync();
+            return await _context.Question.Where(x => string.IsNullOrEmpty(title) || x.Title.Contains(title))
+                .Include(x => x.Tag).ToListAsync();
         }
     }
 }

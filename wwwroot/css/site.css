@@ -27,6 +27,12 @@ html {
     object-fit: cover;
 }
 
+.image-mini {
+    width: 19px;
+    height: 19px;
+    object-fit: cover;
+}
+
 ::-webkit-scrollbar {
     width: 14px;
 }

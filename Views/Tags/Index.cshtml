@@ -5,16 +5,20 @@
 }
 
 <div class="m-auto" style="max-width: 900px; margin-top: 80px !important">
-    <h3>Tags</h3>
-    <p>Facilitando a organização e a acessibilidade: Utilize Tags para classificar suas perguntas de forma eficiente e simplificar a busca por informações específicas!</p>
-    <form asp-controller="Tags" asp-action="Index" method="get" role="search">
-        <input name="tag" value="@ViewData["Tag"]" class="form-control d-inline" type="search" placeholder="Filter" aria-label="Search" style="max-width: 250px">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search d-inline ms-2" viewBox="0 0 16 16">
-            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-        </svg>
+    <h3 class="text-sm-start text-center">Tags</h3>
+    <p class="text-sm-start text-center">Facilitando a organização e a acessibilidade: Utilize Tags para classificar suas perguntas de forma eficiente e simplificar a busca por informações específicas!</p>
+    <form asp-controller="Tags" asp-action="Index" method="get" role="search" class="row gx-2 justify-content-sm-start justify-content-center">
+        <div class="col-auto">
+            <input name="title" value="@ViewData["SearchString"]" class="form-control" type="search" placeholder="Filter" aria-label="Search" style="min-width:300px">
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                </svg>
+            </button>
+        </div>
     </form>
-
-
     <div class="row row-cols-1 row-cols-md-3 mt-2">
         @foreach (var item in Model)
         {
@@ -29,21 +33,15 @@
             </div>
         }
     </div>
-
     <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-end mt-4">
+        <ul class="pagination justify-content-sm-end  justify-content-center mt-5">
             <li class="page-item"><a class="page-link" href="#">Previous</a></li>
             <li class="page-item">
                 @Html.ActionLink("1", "Index", "Tags", new { tag = ViewData["Tag"], page = 1 }, new { Class = "page-link active" })
             </li>
-
-
-
-
             <li class="page-item"><a class="page-link" href="#">2</a></li>
             <li class="page-item"><a class="page-link" href="#">3</a></li>
             <li class="page-item"><a class="page-link" href="#">Next</a></li>
         </ul>
     </nav>
-
 </div>
