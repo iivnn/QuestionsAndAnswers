@@ -4,51 +4,156 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<div class="m-auto" style="max-width: 900px; margin-top: 80px !important">
+    <h3 class="text-sm-start text-center">Questions</h3>
+    <p class="text-sm-start text-center">Faça perguntas, compartilhe conhecimento e junte-se à comunidade de aprendizado.</p>
+    <form asp-controller="Questions" asp-action="Index" method="get" role="search" class="row gx-2 justify-content-sm-start justify-content-center">
+        <div class="col-auto">
+            <input name="title" value="@ViewData["SearchString"]" class="form-control" type="search" placeholder="Filter" aria-label="Search" style="min-width:300px">
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                </svg>
+            </button>
+        </div>
+    </form>
+    <div class="row mt-5">
+        <div class="col-sm-4 text-sm-start text-center">
+            <p class="fs-5">2,567,651 questions</p>
+        </div>
+        <div class="col-sm-8">
+            <div class="btn-toolbar justify-content-center justify-content-sm-end" role="toolbar" aria-label="Toolbar with button groups">
+                <div class="btn-group" role="group" aria-label="First group">
+                    <button type="button" class="btn btn-outline-secondary active">New</button>
+                    <button type="button" class="btn btn-outline-secondary">Active</button>
+                    <button type="button" class="btn btn-outline-secondary">Unanswered</button>
+                    <button type="button" class="btn btn-outline-secondary">Score</button>
+                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filter" viewBox="0 0 16 16">
+                            <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5" />
+                        </svg>
+                        Tags
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="collapse mt-2" id="collapseExample">
+        <div class="card">
+            <div class="card-body">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                    <label class="form-check-label" for="flexRadioDefault1">
+                        All tags
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                    <label class="form-check-label" for="flexRadioDefault2">
+                        Followed tags
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                    <label class="form-check-label" for="flexRadioDefault2">
+                        Following tags
+                    </label>
+                </div>
+                <div class="mt-2">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                        <label class="form-check-label" for="inlineCheckbox1"><span class="badge" style="background-color: yellow; color: black">javascript</span></label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                        <label class="form-check-label" for="inlineCheckbox1"><span class="badge" style="background-color: yellow; color: black">javascript</span></label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                        <label class="form-check-label" for="inlineCheckbox1"><span class="badge" style="background-color: yellow; color: black">javascript</span></label>
+                    </div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                        <label class="form-check-label" for="inlineCheckbox1"><span class="badge" style="background-color: yellow; color: black">javascript</span></label>
+                    </div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Questions[0].Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Questions[0].Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Questions[0].CreatedAt)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Questions[0].UpdatedAt)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Questions) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                    @Html.DisplayFor(modelItem => item.CreatedAt)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UpdatedAt)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                        <label class="form-check-label" for="inlineCheckbox1"><span class="badge" style="background-color: yellow; color: black">javascript</span></label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                        <label class="form-check-label" for="inlineCheckbox1"><span class="badge" style="background-color: yellow; color: black">javascript</span></label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                        <label class="form-check-label" for="inlineCheckbox1"><span class="badge" style="background-color: yellow; color: black">javascript</span></label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                        <label class="form-check-label" for="inlineCheckbox1"><span class="badge" style="background-color: yellow; color: black">javascript</span></label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                        <label class="form-check-label" for="inlineCheckbox1"><span class="badge" style="background-color: yellow; color: black">javascript</span></label>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer text-body-secondary">
+                <button type="button" class="btn btn-primary btn-sm mt-2" style="width: 100px">Apply</button>
+            </div>
+        </div>
+    </div>
+    <ul class="list-group list-group-flush mt-4">
+        @foreach (var item in Model.Questions)
+        {
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-sm-2 align-self-center d-flex d-sm-block">
+                        <p class="fw-light text-end" style="font-size: 13px">6 votes</p>
+                        <p class="fw-lighter text-end mx-sm-0 mx-2" style="font-size: 13px">0 answers</p>
+                    </div>
+                    <div class="col-sm-10">
+                        <p><a class="fs-5 link-offset-2 link-underline link-underline-opacity-0" href="#">@Html.Raw(item.Title)</a></p>
+                        <p>@Html.Raw(item.Description.Substring(0, 180) + "...")</p>
+                        <a asp-area="" asp-controller="Questions" asp-action="Index"><span class="badge" style="background-color: yellow; color: black">@Html.DisplayFor(modelItem => item.Tag.Name)</span></a>
+                        <div class="float-end mt-sm-0 mt-4">
+                            <div class="d-block text-end">
+                                <span class="fw-light">13</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="lightgreen" class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
+                                    <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a10 10 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733q.086.18.138.363c.077.27.113.567.113.856s-.036.586-.113.856c-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.2 3.2 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.8 4.8 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z" />
+                                </svg>
+                                <span class="fw-lighter">5</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="lightcoral" class="bi bi-hand-thumbs-down-fill" viewBox="0 0 16 16">
+                                    <path d="M6.956 14.534c.065.936.952 1.659 1.908 1.42l.261-.065a1.38 1.38 0 0 0 1.012-.965c.22-.816.533-2.512.062-4.51q.205.03.443.051c.713.065 1.669.071 2.516-.211.518-.173.994-.68 1.2-1.272a1.9 1.9 0 0 0-.234-1.734c.058-.118.103-.242.138-.362.077-.27.113-.568.113-.856 0-.29-.036-.586-.113-.857a2 2 0 0 0-.16-.403c.169-.387.107-.82-.003-1.149a3.2 3.2 0 0 0-.488-.9c.054-.153.076-.313.076-.465a1.86 1.86 0 0 0-.253-.912C13.1.757 12.437.28 11.5.28H8c-.605 0-1.07.08-1.466.217a4.8 4.8 0 0 0-.97.485l-.048.029c-.504.308-.999.61-2.068.723C2.682 1.815 2 2.434 2 3.279v4c0 .851.685 1.433 1.357 1.616.849.232 1.574.787 2.132 1.41.56.626.914 1.28 1.039 1.638.199.575.356 1.54.428 2.591" />
+                                </svg>
+                            </div>
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1200px-Image_created_with_a_mobile_phone.png" class="d-inline rounded image-mini" alt="...">
+                            <p class="d-inline"><a href="#" class="link-offset-2 link-underline link-underline-opacity-0">User123</a></p>
+                            <span clas="fw-bolder">3252</span>
+                            <span class ="fw-light">asked 22 minutes ago</span>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-sm-end  justify-content-center mt-5">
+            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+            <li class="page-item">
+                @Html.ActionLink("1", "Index", "Tags", new { tag = ViewData["Tag"], page = 1 }, new { Class = "page-link active" })
+            </li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul>
+    </nav>
+</div>

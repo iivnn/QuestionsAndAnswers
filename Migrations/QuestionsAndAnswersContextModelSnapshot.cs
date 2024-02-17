@@ -159,34 +159,6 @@ namespace QuestionsAndAnswers.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("QuestionTag", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-                    b.Property<long>("QuestionsId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("TagsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("QuestionsId");
-
-                    b.HasIndex("TagsId");
-
-                    b.ToTable("QuestionTag");
-                });
-
             modelBuilder.Entity("QuestionsAndAnswers.Models.Question", b =>
                 {
                     b.Property<long>("Id")
@@ -205,6 +177,9 @@ namespace QuestionsAndAnswers.Migrations
                         .HasMaxLength(10000)
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("TagId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(60)
@@ -218,6 +193,8 @@ namespace QuestionsAndAnswers.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("TagId");
 
                     b.HasIndex("UserId");
 
@@ -430,28 +407,21 @@ namespace QuestionsAndAnswers.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("QuestionTag", b =>
-                {
-                    b.HasOne("QuestionsAndAnswers.Models.Question", null)
-                        .WithMany()
-                        .HasForeignKey("QuestionsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("QuestionsAndAnswers.Models.Tag", null)
-                        .WithMany()
-                        .HasForeignKey("TagsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("QuestionsAndAnswers.Models.Question", b =>
                 {
+                    b.HasOne("QuestionsAndAnswers.Models.Tag", "Tag")
+                        .WithMany("Questions")
+                        .HasForeignKey("TagId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("QuestionsAndAnswers.Models.User", "User")
                         .WithMany("Questions")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Tag");
 
                     b.Navigation("User");
                 });
@@ -469,6 +439,11 @@ namespace QuestionsAndAnswers.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("QuestionsAndAnswers.Models.Tag", b =>
+                {
+                    b.Navigation("Questions");
                 });
 
             modelBuilder.Entity("QuestionsAndAnswers.Models.User", b =>

@@ -26,14 +26,6 @@ namespace QuestionsAndAnswers.Data
                 .HasDefaultValueSql("getdate()");
 
             builder.Entity<Question>()
-                .HasMany(e => e.Tags)
-                .WithMany(t => t.Questions)
-                .UsingEntity(j =>
-                {
-                    j.IndexerProperty<long>("Id");
-                    j.HasKey("Id");
-                    j.Property<DateTime>("CreatedAt").HasDefaultValueSql("CURRENT_TIMESTAMP");
-                })
                 .Property(b => b.CreatedAt)
                 .HasDefaultValueSql("getdate()");
 

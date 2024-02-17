@@ -187,6 +187,7 @@ namespace QuestionsAndAnswers.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", maxLength: 10000, nullable: false),
+                    TagId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true, defaultValueSql: "getdate()"),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -198,6 +199,12 @@ namespace QuestionsAndAnswers.Migrations
                         name: "FK_Question_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Question_Tag_TagId",
+                        column: x => x.TagId,
+                        principalTable: "Tag",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -223,33 +230,6 @@ namespace QuestionsAndAnswers.Migrations
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_TagUser_Tag_TagsId",
-                        column: x => x.TagsId,
-                        principalTable: "Tag",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "QuestionTag",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
-                    QuestionsId = table.Column<long>(type: "bigint", nullable: false),
-                    TagsId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_QuestionTag", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_QuestionTag_Question_QuestionsId",
-                        column: x => x.QuestionsId,
-                        principalTable: "Question",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_QuestionTag_Tag_TagsId",
                         column: x => x.TagsId,
                         principalTable: "Tag",
                         principalColumn: "Id",
@@ -296,19 +276,14 @@ namespace QuestionsAndAnswers.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Question_TagId",
+                table: "Question",
+                column: "TagId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Question_UserId",
                 table: "Question",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_QuestionTag_QuestionsId",
-                table: "QuestionTag",
-                column: "QuestionsId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_QuestionTag_TagsId",
-                table: "QuestionTag",
-                column: "TagsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TagUser_TagsId",
@@ -340,7 +315,7 @@ namespace QuestionsAndAnswers.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "QuestionTag");
+                name: "Question");
 
             migrationBuilder.DropTable(
                 name: "TagUser");
@@ -349,13 +324,10 @@ namespace QuestionsAndAnswers.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Question");
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "Tag");
-
-            migrationBuilder.DropTable(
-                name: "AspNetUsers");
         }
     }
 }

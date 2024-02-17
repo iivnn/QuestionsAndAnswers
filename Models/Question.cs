@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace QuestionsAndAnswers.Models
 {
@@ -11,7 +10,7 @@ namespace QuestionsAndAnswers.Models
         [Required, StringLength(maximumLength: 10000)]
         public string Description { get; set; } = string.Empty;
         [Required]
-        public List<Tag> Tags { get; set; } = [];
+        public Tag Tag{ get; set; } = default!;
         [Required]
         public User User { get; set; } = default!;
         public DateTime? CreatedAt { get; protected set; } = null;
