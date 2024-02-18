@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/QuestionsAndAnswers.styles.css" asp-append-version="true" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/lib/quill/quill.snow.min.css" asp-append-version="true" />
 </head>
 <body>
     @await Html.PartialAsync("_NavBar")
@@ -19,9 +21,12 @@
 
     @await Html.PartialAsync("_Footer")
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/quill/quill.min.js"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
