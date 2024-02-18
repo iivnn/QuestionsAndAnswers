@@ -24,6 +24,9 @@
                     <li class="nav-item">
                         <a class="nav-link" asp-area="" asp-controller="Tags" asp-action="Index">@Localizer["Tags"]</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Questions" asp-action="Create">@Localizer["Ask"]</a>
+                    </li>
                 </ul>
                 <form asp-controller="Questions" asp-action="Index" method="get" class="d-flex me-2" role="search">
                     <input name="title" value="@ViewData["SearchString"]" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

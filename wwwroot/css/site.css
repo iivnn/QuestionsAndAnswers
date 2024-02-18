@@ -33,6 +33,11 @@ html {
     object-fit: cover;
 }
 
+.default-page {
+    max-width: 900px;
+    margin-top: 80px !important
+}
+
 ::-webkit-scrollbar {
     width: 14px;
 }

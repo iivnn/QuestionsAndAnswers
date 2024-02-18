@@ -4,7 +4,8 @@
     ViewData["Title"] = "Index";
 }
 
-<div class="m-auto" style="max-width: 900px; margin-top: 80px !important">
+<div class="m-auto default-page">
+    <a asp-area="" asp-controller="Questions" asp-action="Create" class="btn btn-primary float-sm-end d-sm-flex d-none" role="button">Ask question</a>
     <h3 class="text-sm-start text-center">Questions</h3>
     <p class="text-sm-start text-center">Faça perguntas, compartilhe conhecimento e junte-se à comunidade de aprendizado.</p>
     <form asp-controller="Questions" asp-action="Index" method="get" role="search" class="row gx-2 justify-content-sm-start justify-content-center">
@@ -19,7 +20,12 @@
             </button>
         </div>
     </form>
-    <div class="row mt-5">
+    <div class="row justify-content-center d-flex d-sm-none mt-3">
+        <div class="col-auto">
+            <a asp-area="" asp-controller="Questions" asp-action="Create" class="btn btn-primary" role="button">Ask question</a>
+        </div>
+    </div>
+    <div class="row mt-sm-5 mt-3">
         <div class="col-sm-4 text-sm-start text-center">
             <p class="fs-5">2,567,651 questions</p>
         </div>
@@ -138,7 +144,7 @@
                             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1200px-Image_created_with_a_mobile_phone.png" class="d-inline rounded image-mini" alt="...">
                             <p class="d-inline"><a href="#" class="link-offset-2 link-underline link-underline-opacity-0">User123</a></p>
                             <span clas="fw-bolder">3252</span>
-                            <span class ="fw-light">asked 22 minutes ago</span>
+                            <span class="fw-light">asked 22 minutes ago</span>
                         </div>
                     </div>
                 </div>
