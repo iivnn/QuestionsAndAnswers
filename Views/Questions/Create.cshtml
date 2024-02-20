@@ -4,45 +4,131 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>Question</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
+<div class="m-auto default-page">
+    <div class="row">
+        <div class="col-auto">
+            <h3 class="text-sm-start text-center">Faça uma pergunta</h3>
+            <p class="text-sm-start text-center">
+                Na busca pelo conhecimento, a qualidade da pergunta é tão importante quanto a qualidade da
+                resposta. Para garantir que você obtenha as respostas mais precisas e úteis, aqui estão algumas boas práticas ao formular sua pergunta:
+            </p>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-auto">
+            <div class="card bg-info" style="--bs-bg-opacity: .3;">
+                <div class="card-body px-5 pt-3">
+                    <ul>
+                        <li>
+                            Seja claro e conciso: Certifique-se de que sua pergunta seja fácil de entender, evitando linguagem ambígua
+                            ou excessivamente técnica. Quanto mais clara for a sua pergunta, melhores serão as respostas que você receberá.
+                        </li>
+                        <li>
+                            Forneça contexto adequado: Contextualize sua pergunta explicando o problema ou a situação específica que você está
+                            enfrentando. Isso ajudará os outros a entenderem melhor o seu problema e oferecerem respostas mais relevantes.
+                        </li>
+                        <li>
+                            Demonstre esforço prévio: Antes de fazer sua pergunta, faça uma pesquisa rápida para ver se sua dúvida já foi respondida
+                            anteriormente. Isso não apenas economiza tempo para você e para os outros, mas também ajuda a evitar perguntas duplicadas.
+                        </li>
+                        <li>
+                            Seja específico e detalhado: Quanto mais informações você fornecer sobre sua situação, melhor será a qualidade das
+                            respostas que você receberá. Inclua detalhes relevantes, como o sistema operacional, linguagem de programação ou contexto do problema.
+                        </li>
+                        <li>
+                            Evite perguntas abertas ou opinativas: Procure fazer perguntas que tenham uma resposta objetiva ou que possam ser
+                            resolvidas com base em fatos ou experiências. Evite perguntas que sejam meramente baseadas em opiniões pessoais.
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <form asp-action="Create">
+                        <div class="mb-3">
+                            <label asp-for="Title" class="form-label"></label>
+                            <input asp-for="Title" class="form-control" />
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Description" class="form-label"></label>
+                            <textarea asp-for="Description" class="form-control" hidden></textarea>
+                            <div id="toolbar-container" class="border rounded-top" style="background-color: #DEE2E6">
+                                <span class="ql-formats">
+                                    <select class="ql-size"></select>
+                                </span>
+                                <span class="ql-formats">
+                                    <button class="ql-bold"></button>
+                                    <button class="ql-italic"></button>
+                                    <button class="ql-underline"></button>
+                                    <button class="ql-strike"></button>
+                                </span>
+                                <span class="ql-formats">
+                                    <button class="ql-blockquote"></button>
+                                    <button class="ql-code-block"></button>
+                                </span>
+                                <span class="ql-formats">
+                                    <button class="ql-list" value="ordered"></button>
+                                    <button class="ql-list" value="bullet"></button>
+                                </span>
+                                <span class="ql-formats">
+                                    <button class="ql-link"></button>
+                                    <button class="ql-image"></button>
+                                    <button class="ql-video"></button>
+                                </span>
+                                <span class="ql-formats">
+                                    <select class="ql-color"></select>
+                                    <select class="ql-background"></select>
+                                </span>
+                            </div>
+                            <div id="editor" class="border rounded-bottom" style="min-height: 150px"></div>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label d-block">Tag</label>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                <label class="form-check-label" for="inlineRadio1"><span class="badge" style="background-color: yellow; color: black">javascript</span></label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                <label class="form-check-label" for="inlineRadio2"><span class="badge" style="background-color: rebeccapurple; color: white">c#</span></label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                                <label class="form-check-label" for="inlineRadio3"><span class="badge" style="background-color: cornflowerblue; color: black">php</span></label>
+                            </div>
+                        </div>
+                        <input type="submit" value="Create" class="btn btn-primary"/>
+                    </form>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="CreatedAt" class="control-label"></label>
-                <input asp-for="CreatedAt" class="form-control" />
-                <span asp-validation-for="CreatedAt" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UpdatedAt" class="control-label"></label>
-                <input asp-for="UpdatedAt" class="form-control" />
-                <span asp-validation-for="UpdatedAt" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        const quill = new Quill('#editor', {
+            modules: {
+                syntax: true,
+                toolbar: '#toolbar-container',
+            },
+            theme: 'snow',
+        });
+
+        const Delta = Quill.import('delta');
+        quill.setContents(
+            new Delta()
+                .insert('', { 'code-block': 'autodetect' })
+        );
+    </script>
 }

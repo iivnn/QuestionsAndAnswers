@@ -33,13 +33,17 @@ html {
     object-fit: cover;
 }
 
+.default-page {
+    max-width: 900px;
+    margin-top: 80px !important
+}
+
 ::-webkit-scrollbar {
     width: 14px;
 }
 
 ::-webkit-scrollbar-track {
     box-shadow: inset 0 0 5px grey;
-    border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
