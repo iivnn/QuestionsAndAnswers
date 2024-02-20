@@ -85,7 +85,7 @@
                                     <select class="ql-background"></select>
                                 </span>
                             </div>
-                            <div id="editor" class="border rounded-bottom"></div>
+                            <div id="editor" class="border rounded-bottom" style="min-height: 150px"></div>
                             <span asp-validation-for="Description" class="text-danger"></span>
                         </div>
                         <div class="mb-4">
@@ -130,6 +130,5 @@
             new Delta()
                 .insert('', { 'code-block': 'autodetect' })
         );
-
     </script>
 }
