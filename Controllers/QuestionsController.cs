@@ -10,9 +10,9 @@ namespace QuestionsAndAnswers.Controllers
     public class QuestionsController : Controller
     {
         private readonly QuestionsAndAnswersContext _context;
-        private readonly QuestionsService _questionsService;
+        private readonly QuestionService _questionsService;
 
-        public QuestionsController(QuestionsAndAnswersContext context, QuestionsService questionsService)
+        public QuestionsController(QuestionsAndAnswersContext context, QuestionService questionsService)
         {
             _context = context;
             _questionsService = questionsService;

@@ -1,0 +1,11 @@
+﻿@inject IViewLocalizer Localizer
+@using Microsoft.AspNetCore.Mvc.Localization
+@model System.String
+
+@{
+    ViewData["Title"] = Localizer["PageTitle"];
+}
+
+<div class="m-auto default-page">
+    <a href="@Model">@Model</a>
+</div>

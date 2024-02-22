@@ -132,9 +132,6 @@
   <data name="Join" xml:space="preserve">
     <value>Join the community</value>
   </data>
-  <data name="Nickname" xml:space="preserve">
-    <value>Nickname</value>
-  </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
   </data>
@@ -143,5 +140,8 @@
   </data>
   <data name="Tags" xml:space="preserve">
     <value>Tags</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>User</value>
   </data>
 </root>

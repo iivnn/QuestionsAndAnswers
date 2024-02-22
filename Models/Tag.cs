@@ -13,7 +13,8 @@ namespace QuestionsAndAnswers.Models
         public string DescriptionPT { get; set; } = string.Empty;
         [Required, MaxLength(100)]
         public string Color { get; set; } = string.Empty;
-        public List<Question>? Questions { get; set; } = [];
+        public string InnerColor { get; set; } = string.Empty;
+        public List<Question> Questions { get; set; } = [];
         public DateTime? CreatedAt { get; protected set; } = null;
         public DateTime? UpdatedAt { get; set; } = null;
     }
