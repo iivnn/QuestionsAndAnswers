@@ -48,6 +48,7 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 builder.Services.AddScoped(typeof(QuestionService));
 builder.Services.AddScoped(typeof(TagService));
+builder.Services.AddScoped(typeof(UserService));
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 
 builder.Services.Configure<IdentityOptions>(options =>
@@ -59,7 +60,7 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequiredLength = 6;
     options.Password.RequiredUniqueChars = 1;
 
-    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromDays(7);
     options.Lockout.MaxFailedAccessAttempts = 5;
     options.Lockout.AllowedForNewUsers = true;
 

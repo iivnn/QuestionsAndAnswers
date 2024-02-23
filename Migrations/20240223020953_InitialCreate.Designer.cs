@@ -12,7 +12,7 @@ using QuestionsAndAnswers.Data;
 namespace QuestionsAndAnswers.Migrations
 {
     [DbContext(typeof(QuestionsAndAnswersContext))]
-    [Migration("20240222024324_InitialCreate")]
+    [Migration("20240223020953_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

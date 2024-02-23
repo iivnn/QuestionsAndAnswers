@@ -41,12 +41,36 @@ namespace QuestionsAndAnswers.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var alreadyLogged = _signInManager.IsSignedIn(User);
+            return alreadyLogged ? Redirect("/Questions/Index") : View();
         }
 
         public IActionResult Login()
         {
-            return View();
+            var alreadyLogged = _signInManager.IsSignedIn(User);
+            return alreadyLogged ? View("Index") : View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login([Bind("Password,UserName")] LoginViewModel model)
+        {
+            var loginSucceeded = _signInManager.IsSignedIn(User);
+            if (!loginSucceeded)
+            {
+                if (ModelState.IsValid)
+                {
+                    var user = await _signInManager.UserManager.FindByNameAsync(model.UserName);
+                    if (user != null)
+                    {
+                        var result = await _signInManager.PasswordSignInAsync(user, model.Password, false, false);
+                        loginSucceeded = result.Succeeded;
+                    }
+                }
+            }
+
+            return loginSucceeded ? View("Index") : View(new LoginViewModel { UserName = model.UserName });
         }
 
         public async Task<IActionResult> SignUp()
@@ -54,8 +78,8 @@ namespace QuestionsAndAnswers.Controllers
             var model = new SignUpViewModel();
             var tags = await _tagService.SelectAllAsync();
 
-            foreach (var tag in tags) 
-            { 
+            foreach (var tag in tags)
+            {
                 model.Tags.Add(new TagSignUpViewModel()
                 {
                     Id = tag.Id,
@@ -94,10 +118,17 @@ namespace QuestionsAndAnswers.Controllers
                 var result = await _signInManager.UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    var token = await _signInManager.UserManager.GenerateEmailConfirmationTokenAsync(user);
-                    string confirmationLink = Url.Action("", nameof(ConfirmEmail), new { token, email = user.Email }, Request.Scheme)!;
-                    await _emailSender.SendEmailAsync(model.Email, "Confirmacao de conta", confirmationLink);
-                    return View("ConfirmationLink", confirmationLink);
+                    var userSelectedTagsId = model.Tag.Split(",").Select(int.Parse).ToArray();
+                    var userSelectedTags = await _tagService.SelectTagByIdsAsync(userSelectedTagsId);
+                    user.Tags = userSelectedTags.ToList();
+                    result = await _signInManager.UserManager.UpdateAsync(user);
+                    if (result.Succeeded)
+                    {
+                        var token = await _signInManager.UserManager.GenerateEmailConfirmationTokenAsync(user);
+                        string confirmationLink = Url.Action("", nameof(ConfirmEmail), new { token, email = user.Email }, Request.Scheme)!;
+                        await _emailSender.SendEmailAsync(model.Email, "Confirmacao de conta", confirmationLink);
+                        return View("ConfirmationLink", confirmationLink);
+                    }
                 }
             }
 

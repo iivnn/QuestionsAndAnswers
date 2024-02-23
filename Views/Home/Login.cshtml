@@ -1,5 +1,6 @@
 ﻿@inject IViewLocalizer Localizer
 @using Microsoft.AspNetCore.Mvc.Localization
+@model QuestionsAndAnswers.Models.ViewModels.LoginViewModel
 
 @{
     ViewData["Title"] = Localizer["PageTitle"];
@@ -7,7 +8,7 @@
 
 <div class="vh-80 d-flex align-items-center">
     <div class="form-signin w-100 m-auto vw-100 text-center">
-        <form>
+        <form asp-action="Login">
             <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-person-circle my-5" viewBox="0 0 16 16">
                 <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
                 <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
@@ -15,11 +16,11 @@
             <h1 class="h3 mb-3 fw-normal">@Localizer["Welcome"]</h1>
 
             <div class="form-floating">
-                <input type="email" class="form-control" id="floatingInput" placeholder="@Localizer["EmailExample"]<">
+                <input type="text" asp-for="UserName" class="form-control" id="floatingInput" placeholder="@Localizer["EmailExample"]<">
                 <label for="floatingInput">@Localizer["Email"]</label>
             </div>
             <div class="form-floating">
-                <input type="password" class="form-control" id="floatingPassword" placeholder="@Localizer["PasswordExample"]">
+                <input type="password" asp-for="Password" class="form-control" id="floatingPassword" placeholder="@Localizer["PasswordExample"]">
                 <label for="floatingPassword">@Localizer["Password"]</label>
             </div>
 

@@ -1,7 +1,9 @@
 ﻿@inject IViewLocalizer Localizer
 @using Microsoft.AspNetCore.Mvc.Localization
 @using Microsoft.AspNetCore.Identity
-@inject SignInManager<User> SignInManager
+@inject SignInManager<User> signInManager
+@using QuestionsAndAnswers.Services
+@inject UserService userService
 
 <header class="border-bottom fixed-top">
     <nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom border-body">
@@ -34,11 +36,23 @@
                     <input name="title" value="@ViewData["SearchString"]" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 </form>
                 <div class="d-flex mt-lg-0 mt-2 me-2">
-                    @if (SignInManager.IsSignedIn(User))
+                    @if (signInManager.IsSignedIn(User))
                     {
+                        var avatar = "user.png";
+                        {                            
+                            string? username = User?.Identity?.Name;
+                            if (username != null)
+                            {
+                                var path = await userService.SelectImagePathByUserNameAsync(username);
+                                if (path != null)
+                                {
+                                    avatar = path;
+                                }
+                            }                         
+                        }
                         <div class="dropdown text-end">
                             <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+                                <img src="~/images/@avatar" alt="mdo" width="32" height="32" class="rounded-circle">
                             </a>
                             <ul class="dropdown-menu text-small" style="">
                                 <li><a class="dropdown-item" href="#">New project...</a></li>
