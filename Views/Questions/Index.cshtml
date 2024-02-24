@@ -120,6 +120,7 @@
     <ul class="list-group list-group-flush mt-4">
         @foreach (var item in Model.Questions)
         {
+            var description = item.Description.Length > 180 ? item.Description.Substring(0, 180) + "..." : item.Description;
             <li class="list-group-item">
                 <div class="row">
                     <div class="col-sm-2 align-self-center d-flex d-sm-block">
@@ -128,7 +129,7 @@
                     </div>
                     <div class="col-sm-10">
                         <p><a class="fs-5 link-offset-2 link-underline link-underline-opacity-0" href="#">@Html.Raw(item.Title)</a></p>
-                        <p>@Html.Raw(item.Description.Substring(0, 180) + "...")</p>
+                        <p>@Html.Raw(description)</p>
                         <a asp-area="" asp-controller="Questions" asp-action="Index"><span class="badge" style="background-color: yellow; color: black">@Html.DisplayFor(modelItem => item.Tag.Name)</span></a>
                         <div class="float-end mt-sm-0 mt-4">
                             <div class="d-block text-end">

@@ -14,14 +14,6 @@ namespace QuestionsAndAnswers.Models.ViewModels
         [MaxLength(1000)]
         public string? About { get; set; } = string.Empty;
         public string Tag { get; set; } = string.Empty;
-        public List<TagSignUpViewModel> Tags { get; set; } = [];     
-    }
-
-    public class TagSignUpViewModel
-    {
-        public int Id { get; set; }
-        public string Name { get; set; } = string.Empty;
-        public string Color { get; set; } = string.Empty;
-        public string InnerColor { get; set; } = string.Empty;
+        public List<Tag> Tags { get; set; } = [];     
     }
 }

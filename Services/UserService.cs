@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using QuestionsAndAnswers.Data;
+using QuestionsAndAnswers.Models;
 
 namespace QuestionsAndAnswers.Services
 {
@@ -15,6 +16,21 @@ namespace QuestionsAndAnswers.Services
         public async Task<string?> SelectImageNameByUserNameAsync(string userName)
         {
             return await _context.User.Where(user => user.UserName == userName).Select(user => user.ImageName).FirstOrDefaultAsync();
+        }
+
+        public async Task<User> SelectByUserNameAsync(string userName, bool includeAll = false)
+        {
+            ArgumentNullException.ThrowIfNull(userName);
+
+#pragma warning disable CS8603 // Possível retorno de referência nula.
+            if (includeAll)
+                return await _context.User.Where(user => user.UserName == userName)
+                    .Include(user => user.Tags)
+                    .Include(user => user.Questions)
+                    .FirstOrDefaultAsync();
+            else
+                return await _context.User.Where(user => user.UserName == userName).FirstOrDefaultAsync();
+#pragma warning restore CS8603 // Possível retorno de referência nula.
         }
     }
 }
