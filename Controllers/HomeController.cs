@@ -23,6 +23,7 @@ namespace QuestionsAndAnswers.Controllers
         private readonly IEmailSender _emailSender;
         private readonly IHostEnvironment _hostEnvironment;
         private readonly TagService _tagService;
+        private readonly UserService _userService;
 
         public HomeController(
             ILogger<HomeController> logger,
@@ -30,7 +31,8 @@ namespace QuestionsAndAnswers.Controllers
             SignInManager<User> signInManager,
             IEmailSender emailSender,
             IHostEnvironment hostEnvironment,
-            TagService tagService)
+            TagService tagService,
+            UserService userService)
         {
             _logger = logger;
             _stringLocalizer = stringLocalizer;
@@ -38,6 +40,7 @@ namespace QuestionsAndAnswers.Controllers
             _emailSender = emailSender;
             _hostEnvironment = hostEnvironment;
             _tagService = tagService;
+            _userService = userService;
         }
 
         public IActionResult Index()
@@ -71,9 +74,9 @@ namespace QuestionsAndAnswers.Controllers
                 }
             }
 
-            if (loginSucceeded)           
-                if (model.Remember)               
-                    Response.Cookies.Append("username", model.UserName);                
+            if (loginSucceeded)
+                if (model.Remember)
+                    Response.Cookies.Append("username", model.UserName);
                 else
                     Response.Cookies.Delete("username");
 
@@ -84,17 +87,7 @@ namespace QuestionsAndAnswers.Controllers
         {
             var model = new SignUpViewModel();
             var tags = await _tagService.SelectAllAsync();
-
-            foreach (var tag in tags)
-            {
-                model.Tags.Add(new TagSignUpViewModel()
-                {
-                    Id = tag.Id,
-                    Name = tag.Name,
-                    Color = tag.Color,
-                    InnerColor = tag.InnerColor,
-                });
-            }
+            model.Tags = tags.ToList();
 
             return View(model);
         }
@@ -140,22 +133,12 @@ namespace QuestionsAndAnswers.Controllers
             }
 
             var tags = await _tagService.SelectAllAsync();
-
-            foreach (var tag in tags)
-            {
-                model.Tags.Add(new TagSignUpViewModel()
-                {
-                    Id = tag.Id,
-                    Name = tag.Name,
-                    Color = tag.Color,
-                    InnerColor = tag.InnerColor,
-                });
-            }
+            model.Tags = tags.ToList();
 
             return View(model);
         }
 
-        [HttpGet]      
+        [HttpGet]
         public async Task<IActionResult> ConfirmEmail(string token, string email)
         {
             var user = await _signInManager.UserManager.FindByEmailAsync(email);
@@ -173,9 +156,41 @@ namespace QuestionsAndAnswers.Controllers
             {
                 await _signInManager.SignOutAsync();
                 HttpContext.User = new GenericPrincipal(new GenericIdentity(string.Empty), null);
-            }               
+            }
 
             return View("Index");
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Profile()
+        {
+            var user = await _userService.SelectByUserNameAsync(User?.Identity?.Name!, true);
+
+            var tags = await _tagService.SelectAllAsync();
+
+            var tagsViewModel = new List<TagProfileViewModel>();
+
+            foreach (var tag in tags)
+            {
+                tagsViewModel.Add(new TagProfileViewModel()
+                {
+                    Name = tag.Name,
+                    Color = tag.Color,
+                    InnerColor = tag.InnerColor,
+                    Id = tag.Id,
+                    Checked = user.Tags.Contains(tag)
+                });
+            }
+
+            return View(new ProfileViewModel
+            {
+                UserName = user?.UserName!,
+                ImageName = user?.ImageName,
+                Tags = tagsViewModel,
+                About = user?.About,
+                Email = user?.Email!,
+                Questions = user?.Questions!
+            });
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

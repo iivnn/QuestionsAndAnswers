@@ -1,0 +1,207 @@
+﻿@inject IViewLocalizer Localizer
+@using Microsoft.AspNetCore.Mvc.Localization
+@model QuestionsAndAnswers.Models.ViewModels.ProfileViewModel
+
+@{
+    ViewData["Title"] = Localizer["PageTitle"];
+}
+
+<div class="m-auto default-page">
+    <div class="card">
+        <div class="card-header">
+            Dados pessoais
+        </div>
+        <div class="card-body text-center">
+            <form asp-action="SignUp" enctype="multipart/form-data" class="text-start px-lg-5">
+                <div class="row mb-4">
+                    <div class="text-center">
+                        <img src="~/images/@Model.ImageName" id="selectedImage" class="rounded-circle img-thumbnail mb-4 image-profile" alt="Profile Image">
+                    </div>
+                    <label for="fileInput" class="col-sm-2 col-form-label">@Localizer["Image"]</label>
+                    <div class="col-sm-10">
+                        <input class="form-control" type="file" asp-for="Image" id="fileInput">
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <label for="userName" class="col-sm-2 col-form-label">@Localizer["UserName"]</label>
+                    <div class="col-sm-10">
+                        <input type="text" asp-for="UserName" class="form-control" id="userName" disabled>
+                        <span asp-validation-for="UserName" class="text-danger position-absolute"></span>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <label for="inputPassword" class="col-sm-2 col-form-label">@Localizer["Password"]</label>
+                    <div class="col-sm-10">
+                        <input type="password" asp-for="Password" class="form-control" id="inputPassword">
+                        <span asp-validation-for="Password" class="text-danger position-absolute"></span>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <label for="inputPassword" class="col-sm-2 col-form-label">New Password</label>
+                    <div class="col-sm-10">
+                        <input type="password" asp-for="Password" class="form-control" id="inputPassword">
+                        <span asp-validation-for="Password" class="text-danger position-absolute"></span>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <label for="inputEmail" class="col-sm-2 col-form-label">@Localizer["Email"]</label>
+                    <div class="col-sm-10">
+                        <input type="email" asp-for="Email" class="form-control" id="inputEmail" disabled>
+                        <span asp-validation-for="Email" class="text-danger position-absolute"></span>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <label for="aboutInput" class="col-sm-2 col-form-label">@Localizer["About"]</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" asp-for="About" id="aboutInput" rows="4" maxlength="1000"></textarea>
+                        <span asp-validation-for="About" class="text-danger position-absolute"></span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">@Localizer["Tags"]</label>
+                    <div class="col-sm-10">
+                        @foreach (var tag in Model.Tags)
+                        {
+                            string check = tag.Checked ? "checked" : "";
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" value="@tag.Id" id="@tag.Id" @check>
+                                <label class="form-check-label" for="@tag.Id">
+                                    <span class="badge" style="background-color: @tag.Color; color: @tag.InnerColor">@tag.Name</span>
+                                </label>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <input type="text" asp-for="Tag" id="tagsInput" hidden>
+                <button id="submit" type="submit" value="SignUp" class="btn btn-primary mt-3 justify-content-end">@Localizer["Sign"]</button>
+            </form>
+        </div>
+    </div>
+    <div class="accordion mt-4" id="accordionExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    Perguntas <span class="badge text-bg-secondary ms-2">9</span>
+                </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <ul class="list-group list-group-flush">
+                        @foreach (var item in Model.Questions)
+                        {
+                            var description = item.Description.Length > 180 ? item.Description.Substring(0, 180) + "..." : item.Description;
+                            <li class="list-group-item">
+                                <span class="position-absolute" style="right: -10px; top: 10px">
+                                    <button type="button" class="btn btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Delete question">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#DC3545" class="bi bi-trash3" viewBox="0 0 16 16">
+                                            <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5" />
+                                        </svg>
+                                    </button>
+                                </span>
+                                <div class="row">
+
+                                    <div class="col-sm-2 align-self-center d-flex d-sm-block">
+                                        <p class="fw-lighter text-end" style="font-size: 13px">
+                                            <span class="badge rounded-pill bg-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="You have new answers!">
+                                                new
+                                                <span class="visually-hidden">unread messages</span>
+                                            </span>
+                                            12 answers
+                                        </p>
+                                        <p class="fw-light text-end mx-sm-0 mx-2" style="font-size: 13px">6 votes</p>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <p>
+                                            <a class="fs-5 link-offset-2 link-underline link-underline-opacity-0" href="#">
+                                                @Html.Raw(item.Title)
+                                            </a>
+                                        </p>
+                                        <p>@Html.Raw(description)</p>
+                                        <span class="badge" style="background-color: yellow">
+                                            <a asp-area="" asp-controller="Questions" asp-action="Index" class="link-offset-2 link-underline link-underline-opacity-0" style="color: black">@Html.DisplayFor(modelItem => item.Tag.Name)</a>
+                                        </span>
+                                        <div class="float-end mt-sm-0 mt-4">
+                                            <div class="d-block text-end">
+                                                <span class="fw-light">13</span>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="lightgreen" class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
+                                                    <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a10 10 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733q.086.18.138.363c.077.27.113.567.113.856s-.036.586-.113.856c-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.2 3.2 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.8 4.8 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z" />
+                                                </svg>
+                                                <span class="fw-lighter">5</span>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="lightcoral" class="bi bi-hand-thumbs-down-fill" viewBox="0 0 16 16">
+                                                    <path d="M6.956 14.534c.065.936.952 1.659 1.908 1.42l.261-.065a1.38 1.38 0 0 0 1.012-.965c.22-.816.533-2.512.062-4.51q.205.03.443.051c.713.065 1.669.071 2.516-.211.518-.173.994-.68 1.2-1.272a1.9 1.9 0 0 0-.234-1.734c.058-.118.103-.242.138-.362.077-.27.113-.568.113-.856 0-.29-.036-.586-.113-.857a2 2 0 0 0-.16-.403c.169-.387.107-.82-.003-1.149a3.2 3.2 0 0 0-.488-.9c.054-.153.076-.313.076-.465a1.86 1.86 0 0 0-.253-.912C13.1.757 12.437.28 11.5.28H8c-.605 0-1.07.08-1.466.217a4.8 4.8 0 0 0-.97.485l-.048.029c-.504.308-.999.61-2.068.723C2.682 1.815 2 2.434 2 3.279v4c0 .851.685 1.433 1.357 1.616.849.232 1.574.787 2.132 1.41.56.626.914 1.28 1.039 1.638.199.575.356 1.54.428 2.591" />
+                                                </svg>
+                                            </div>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#198754" class="bi bi-check-circle-fill me-1" viewBox="0 0 16 16" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="This question was already resolved">
+                                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                                            </svg>
+                                            <span class="fw-light">asked 22 minutes ago</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-sm-end  justify-content-center mt-5">
+                            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                            <li class="page-item">
+                                @Html.ActionLink("1", "Index", "Tags", new { tag = ViewData["Tag"], page = 1 }, new { Class = "page-link active" })
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    Respostas <span class="badge text-bg-secondary ms-2">65</span>
+                </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <strong>soon</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        document.getElementById('fileInput').addEventListener('change', function (event) {
+            var selectedFile = event.target.files[0];
+
+            if (selectedFile) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    var imageElement = document.getElementById('selectedImage');
+                    imageElement.src = e.target.result;
+                };
+
+                reader.readAsDataURL(selectedFile);
+            }
+        });
+
+        document.getElementById('submit').addEventListener("click", function (event) {
+            var array = [];
+            var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
+
+            for (var i = 0; i < checkboxes.length; i++) {
+                array.push(checkboxes[i].value)
+            }
+            document.getElementById('tagsInput').value = array.toString()
+        });
+
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
+    </script>
+}
