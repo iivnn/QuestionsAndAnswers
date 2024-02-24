@@ -43,8 +43,8 @@
                             string? username = User?.Identity?.Name;
                             if (username != null)
                             {
-                                var path = await userService.SelectImagePathByUserNameAsync(username);
-                                if (path != null)
+                                var path = await userService.SelectImageNameByUserNameAsync(username);
+                                if (!string.IsNullOrEmpty(path))
                                 {
                                     avatar = path;
                                 }
@@ -59,14 +59,14 @@
                                 <li><a class="dropdown-item" href="#">Settings</a></li>
                                 <li><a class="dropdown-item" href="#">Profile</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">Sign out</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Logout">Sign out</a></li>
                             </ul>
                         </div>
                     }
                     else
                     {
-                        <a id="LoginButton" asp-area="" asp-controller="Home" asp-action="Login" role="button" class="btn btn-info me-2">@Localizer["Login"]</a>
-                        <a type="button" asp-area="" asp-controller="Home" asp-action="SignUp" class="btn btn-warning">@Localizer["Sign-up"]</a>
+                        <a id="LoginButton" asp-area="" asp-controller="Home" asp-action="Login" role="button" class="btn btn-outline-primary me-2">@Localizer["Login"]</a>
+                        <a type="button" asp-area="" asp-controller="Home" asp-action="SignUp" class="btn btn-primary">@Localizer["Sign-up"]</a>
                     }
                 </div>
             </div>

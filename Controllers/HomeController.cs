@@ -10,6 +10,7 @@ using NuGet.Common;
 using QuestionsAndAnswers.Models;
 using QuestionsAndAnswers.Models.ViewModels;
 using QuestionsAndAnswers.Services;
+using System.Security.Principal;
 
 namespace QuestionsAndAnswers.Controllers
 {
@@ -48,13 +49,13 @@ namespace QuestionsAndAnswers.Controllers
         public IActionResult Login()
         {
             var alreadyLogged = _signInManager.IsSignedIn(User);
-            return alreadyLogged ? View("Index") : View();
+            return alreadyLogged ? View("Index") : View(new LoginViewModel());
         }
 
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login([Bind("Password,UserName")] LoginViewModel model)
+        public async Task<IActionResult> Login([Bind("Password,UserName,Remember")] LoginViewModel model)
         {
             var loginSucceeded = _signInManager.IsSignedIn(User);
             if (!loginSucceeded)
@@ -69,6 +70,12 @@ namespace QuestionsAndAnswers.Controllers
                     }
                 }
             }
+
+            if (loginSucceeded)           
+                if (model.Remember)               
+                    Response.Cookies.Append("username", model.UserName);                
+                else
+                    Response.Cookies.Delete("username");
 
             return loginSucceeded ? View("Index") : View(new LoginViewModel { UserName = model.UserName });
         }
@@ -148,7 +155,7 @@ namespace QuestionsAndAnswers.Controllers
             return View(model);
         }
 
-        [HttpGet]
+        [HttpGet]      
         public async Task<IActionResult> ConfirmEmail(string token, string email)
         {
             var user = await _signInManager.UserManager.FindByEmailAsync(email);
@@ -156,6 +163,19 @@ namespace QuestionsAndAnswers.Controllers
                 return View("Error");
             var result = await _signInManager.UserManager.ConfirmEmailAsync(user, token);
             return View(result.Succeeded ? "Index" : "Error");
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Logout()
+        {
+            var alreadyLogged = _signInManager.IsSignedIn(User);
+            if (alreadyLogged)
+            {
+                await _signInManager.SignOutAsync();
+                HttpContext.User = new GenericPrincipal(new GenericIdentity(string.Empty), null);
+            }               
+
+            return View("Index");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

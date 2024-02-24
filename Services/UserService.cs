@@ -12,7 +12,7 @@ namespace QuestionsAndAnswers.Services
             _context = context;
         }
 
-        public async Task<string?> SelectImagePathByUserNameAsync(string userName)
+        public async Task<string?> SelectImageNameByUserNameAsync(string userName)
         {
             return await _context.User.Where(user => user.UserName == userName).Select(user => user.ImageName).FirstOrDefaultAsync();
         }
