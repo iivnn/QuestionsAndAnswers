@@ -12,7 +12,7 @@ using QuestionsAndAnswers.Data;
 namespace QuestionsAndAnswers.Migrations
 {
     [DbContext(typeof(QuestionsAndAnswersContext))]
-    [Migration("20240217174528_InitialCreate")]
+    [Migration("20240223020953_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -232,6 +232,10 @@ namespace QuestionsAndAnswers.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
+                    b.Property<string>("InnerColor")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -251,9 +255,8 @@ namespace QuestionsAndAnswers.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("About")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
@@ -267,9 +270,6 @@ namespace QuestionsAndAnswers.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("getdate()");
 
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -277,8 +277,7 @@ namespace QuestionsAndAnswers.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("ImageLink")
-                        .IsRequired()
+                    b.Property<string>("ImageName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")

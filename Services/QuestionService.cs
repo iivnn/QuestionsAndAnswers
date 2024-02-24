@@ -4,11 +4,11 @@ using QuestionsAndAnswers.Models;
 
 namespace QuestionsAndAnswers.Services
 {
-    public class QuestionsService
+    public class QuestionService
     {
         private readonly QuestionsAndAnswersContext _context;
 
-        public QuestionsService(QuestionsAndAnswersContext context)
+        public QuestionService(QuestionsAndAnswersContext context)
         {
             _context = context;
         }

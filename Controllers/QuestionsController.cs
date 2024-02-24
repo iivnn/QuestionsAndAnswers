@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QuestionsAndAnswers.Data;
 using QuestionsAndAnswers.Models;
@@ -10,12 +11,17 @@ namespace QuestionsAndAnswers.Controllers
     public class QuestionsController : Controller
     {
         private readonly QuestionsAndAnswersContext _context;
-        private readonly QuestionsService _questionsService;
+        private readonly QuestionService _questionsService;
+        private readonly SignInManager<User> _signInManager;
 
-        public QuestionsController(QuestionsAndAnswersContext context, QuestionsService questionsService)
+        public QuestionsController(
+            QuestionsAndAnswersContext context, 
+            QuestionService questionsService,
+            SignInManager<User> signInManager)
         {
             _context = context;
             _questionsService = questionsService;
+            _signInManager = signInManager;
         }
 
         // GET: Questions
@@ -53,7 +59,8 @@ namespace QuestionsAndAnswers.Controllers
         // GET: Questions/Create
         public IActionResult Create()
         {
-            return View();
+            var alreadyLogged = _signInManager.IsSignedIn(User);
+            return alreadyLogged ? View() : Redirect("/SignUp");
         }
 
         // POST: Questions/Create

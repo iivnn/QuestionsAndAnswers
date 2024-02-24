@@ -1,0 +1,12 @@
+﻿@inject IViewLocalizer Localizer
+@using Microsoft.AspNetCore.Mvc.Localization
+@model System.String
+
+@{
+    ViewData["Title"] = Localizer["PageTitle"];
+}
+
+<div class="m-auto default-page text-break">
+    <P class="mb-2">Esta pagina está só fazendo cosplay e-mail de confirmação :)</P>
+    <a href="@Model">@Model</a>
+</div>

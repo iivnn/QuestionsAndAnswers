@@ -30,9 +30,8 @@ namespace QuestionsAndAnswers.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    About = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    ImageLink = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Deleted = table.Column<bool>(type: "bit", nullable: false),
+                    About = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
+                    ImageName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true, defaultValueSql: "getdate()"),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -65,6 +64,7 @@ namespace QuestionsAndAnswers.Migrations
                     DescriptionEN = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     DescriptionPT = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     Color = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    InnerColor = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true, defaultValueSql: "getdate()"),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },

@@ -5,6 +5,7 @@
 @{
     ViewData["Title"] = Localizer["PageTitle"];
 }
+
 <div class="m-auto text-center default-page">
     <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-person-raised-hand mt-3" viewBox="0 0 16 16">
         <path d="M6 6.207v9.043a.75.75 0 0 0 1.5 0V10.5a.5.5 0 0 1 1 0v4.75a.75.75 0 0 0 1.5 0v-8.5a.25.25 0 1 1 .5 0v2.5a.75.75 0 0 0 1.5 0V6.5a3 3 0 0 0-3-3H6.236a1 1 0 0 1-.447-.106l-.33-.165A.83.83 0 0 1 5 2.488V.75a.75.75 0 0 0-1.5 0v2.083c0 .715.404 1.37 1.044 1.689L5.5 5c.32.32.5.754.5 1.207" />
@@ -14,90 +15,60 @@
     <h6 class="card-subtitle mb-5 text-body-secondary">@Localizer["Find"]</h6>
     <div class="card">
         <div class="card-body text-center">
-            <form asp-action="SignUp" class="text-start px-lg-5">
-                <div class="row mb-3">
+            <form asp-action="SignUp" enctype="multipart/form-data" class="text-start px-lg-5">
+                <div class="row mb-4">
                     <div class="text-center">
                         <img src="~/images/user.png" id="selectedImage" class="rounded-circle img-thumbnail mb-4 image-profile" alt="Profile Image">
                     </div>
-                    <label for="inputPassword3" class="col-sm-2 col-form-label">@Localizer["Image"]</label>
+                    <label for="fileInput" class="col-sm-2 col-form-label">@Localizer["Image"]</label>
                     <div class="col-sm-10">
-                        <input class="form-control" type="file" id="fileInput">
+                        <input class="form-control" type="file" asp-for="Image" id="fileInput">
                     </div>
                 </div>
-                <div class="row mb-3">
-                    <label for="inputEmail3" class="col-sm-2 col-form-label">@Localizer["Email"]</label>
+                <div class="row mb-4">
+                    <label for="userName" class="col-sm-2 col-form-label">@Localizer["UserName"]</label>
                     <div class="col-sm-10">
-                        <input type="email" asp-for="Email" class="form-control" id="inputEmail3">
+                        <input type="text" asp-for="UserName" class="form-control" id="userName">
+                        <span asp-validation-for="UserName" class="text-danger position-absolute"></span>
                     </div>
                 </div>
-                <div class="row mb-3">
-                    <label for="inputPassword3" class="col-sm-2 col-form-label">@Localizer["Password"]</label>
+                <div class="row mb-4">
+                    <label for="inputPassword" class="col-sm-2 col-form-label">@Localizer["Password"]</label>
                     <div class="col-sm-10">
-                        <input type="password" asp-for="Password" class="form-control" id="inputPassword3">
+                        <input type="password" asp-for="Password" class="form-control" id="inputPassword">
+                        <span asp-validation-for="Password" class="text-danger position-absolute"></span>
                     </div>
                 </div>
-                <div class="row mb-3">
-                    <label for="inputPassword3" class="col-sm-2 col-form-label">@Localizer["Nickname"]</label>
+                <div class="row mb-4">
+                    <label for="inputEmail" class="col-sm-2 col-form-label">@Localizer["Email"]</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="nickName">
+                        <input type="email" asp-for="Email" class="form-control" id="inputEmail">
+                        <span asp-validation-for="Email" class="text-danger position-absolute"></span>
                     </div>
                 </div>
-                <div class="row mb-3">
-                    <label for="inputPassword3" class="col-sm-2 col-form-label">@Localizer["About"]</label>
+                <div class="row mb-4">
+                    <label for="aboutInput" class="col-sm-2 col-form-label">@Localizer["About"]</label>
                     <div class="col-sm-10">
-
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        <textarea class="form-control" asp-for="About" id="aboutInput" rows="4" maxlength="1000"></textarea>
+                        <span asp-validation-for="About" class="text-danger position-absolute"></span>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label">@Localizer["Tags"]</label>
                     <div class="col-sm-10">
-
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                            <label class="form-check-label" for="inlineCheckbox1"><span class="badge" style="background-color: yellow; color: black">javascript</span></label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                            <label class="form-check-label" for="inlineCheckbox1"><span class="badge" style="background-color: yellow; color: black">javascript</span></label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                            <label class="form-check-label" for="inlineCheckbox1"><span class="badge" style="background-color: yellow; color: black">javascript</span></label>
-                        </div>
-
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                            <label class="form-check-label" for="inlineCheckbox1"><span class="badge" style="background-color: yellow; color: black">javascript</span></label>
-                        </div>
-                        
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                            <label class="form-check-label" for="inlineCheckbox1"><span class="badge" style="background-color: yellow; color: black">javascript</span></label>
-                        </div>
-
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                            <label class="form-check-label" for="inlineCheckbox1"><span class="badge" style="background-color: yellow; color: black">javascript</span></label>
-                        </div>
-
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                            <label class="form-check-label" for="inlineCheckbox1"><span class="badge" style="background-color: yellow; color: black">javascript</span></label>
-                        </div>
-
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                            <label class="form-check-label" for="inlineCheckbox1"><span class="badge" style="background-color: yellow; color: black">javascript</span></label>
-                        </div>
-
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                            <label class="form-check-label" for="inlineCheckbox1"><span class="badge" style="background-color: yellow; color: black">javascript</span></label>
-                        </div>
+                        @foreach (var tag in Model.Tags)
+                        {
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" value="@tag.Id" id="@tag.Id">
+                                <label class="form-check-label" for="@tag.Id">
+                                    <span class="badge" style="background-color: @tag.Color; color: @tag.InnerColor">@tag.Name</span>
+                                </label>
+                            </div>
+                        }
                     </div>
                 </div>
-                <button type="submit" value="SignUp" class="btn btn-primary mt-3 justify-content-end">@Localizer["Sign"]</button>
+                <input type="text" asp-for="Tag" id="tagsInput" hidden>
+                <button id="submit" type="submit" value="SignUp" class="btn btn-primary mt-3 justify-content-end">@Localizer["Sign"]</button>
             </form>
         </div>
     </div>
@@ -107,7 +78,6 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-
     <script>
         document.getElementById('fileInput').addEventListener('change', function (event) {
             var selectedFile = event.target.files[0];
@@ -123,6 +93,18 @@
                 reader.readAsDataURL(selectedFile);
             }
         });
+
+        document.getElementById('submit').addEventListener("click", function (event) {
+            var array = [];
+            var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
+
+            for (var i = 0; i < checkboxes.length; i++) {
+                array.push(checkboxes[i].value)
+            }
+            document.getElementById('tagsInput').value = array.toString()
+        });
+
     </script>
+
 }
 
