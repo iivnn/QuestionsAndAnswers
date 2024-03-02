@@ -56,6 +56,8 @@ namespace QuestionsAndAnswers.Controllers
                 tag = await _tagService.SelectByNameAsync(id);
                 if (tag != null)
                     questions = await _questionsService.SelectByTitleAndTagAsync(title, tag.Id);
+                else
+                    return View("~/Views/Home/PageNotFound.cshtml");
             }
             var tags = await _tagService.SelectAllAsync();
 
