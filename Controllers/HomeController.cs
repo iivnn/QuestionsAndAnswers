@@ -119,7 +119,7 @@ namespace QuestionsAndAnswers.Controllers
                 if (result.Succeeded)
                 {
                     var userSelectedTagsId = model.Tag.Split(",").Select(int.Parse).ToArray();
-                    var userSelectedTags = await _tagService.SelectTagByIdsAsync(userSelectedTagsId);
+                    var userSelectedTags = await _tagService.SelectByIdsAsync(userSelectedTagsId);
                     user.Tags = userSelectedTags.ToList();
                     result = await _signInManager.UserManager.UpdateAsync(user);
                     if (result.Succeeded)

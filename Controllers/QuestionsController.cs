@@ -12,16 +12,19 @@ namespace QuestionsAndAnswers.Controllers
     {
         private readonly QuestionsAndAnswersContext _context;
         private readonly QuestionService _questionsService;
+        private readonly TagService _tagService;
         private readonly SignInManager<User> _signInManager;
 
         public QuestionsController(
             QuestionsAndAnswersContext context, 
             QuestionService questionsService,
+            TagService tagService,
             SignInManager<User> signInManager)
         {
             _context = context;
             _questionsService = questionsService;
             _signInManager = signInManager;
+            _tagService = tagService;
         }
 
         // GET: Questions
@@ -29,13 +32,41 @@ namespace QuestionsAndAnswers.Controllers
         {
             @ViewData["SearchString"] = title;
             var questions = await _questionsService.SelectByTitleAsync(title);
+            var tags = await _tagService.SelectAllAsync();
 
             var viewModel = new QuestionViewModel()
             {
-                Questions = questions.ToList()
+                Questions = questions.ToList(),
+                Tags = tags.ToList()
             };
 
             return View(viewModel);
+        }
+
+        // GET: Tag
+        public async Task<IActionResult> Tag(string? id, string title)
+        {
+            @ViewData["SearchString"] = title;
+
+            IEnumerable<Question> questions = [];
+            Tag? tag = null;
+
+            if (!string.IsNullOrEmpty(id))
+            {
+                tag = await _tagService.SelectByNameAsync(id);
+                if (tag != null)
+                    questions = await _questionsService.SelectByTitleAndTagAsync(title, tag.Id);
+            }
+            var tags = await _tagService.SelectAllAsync();
+
+            var viewModel = new QuestionViewModel()
+            {
+                Questions = questions.ToList(),
+                TagInfo = tag,
+                Tags = tags.ToList()
+            };
+
+            return View(nameof(Index), viewModel);
         }
 
         // GET: Questions/Details/5

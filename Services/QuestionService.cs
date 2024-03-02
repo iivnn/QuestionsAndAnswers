@@ -18,5 +18,11 @@ namespace QuestionsAndAnswers.Services
             return await _context.Question.Where(x => string.IsNullOrEmpty(title) || x.Title.Contains(title))
                 .Include(x => x.Tag).ToListAsync();
         }
+
+        public async Task<IEnumerable<Question>> SelectByTitleAndTagAsync(string title, int tagId)
+        {
+            return await _context.Question.Where(x => (string.IsNullOrEmpty(title) || x.Title.Contains(title)) && x.Tag.Id == tagId)
+                .Include(x => x.Tag).ToListAsync();
+        }
     }
 }
