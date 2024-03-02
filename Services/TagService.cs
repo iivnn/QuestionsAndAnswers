@@ -18,9 +18,14 @@ namespace QuestionsAndAnswers.Services
             return await _context.Tag.ToListAsync();
         }
 
-        public async Task<IEnumerable<Tag>> SelectTagByIdsAsync(params int[] id)
+        public async Task<IEnumerable<Tag>> SelectByIdsAsync(params int[] id)
         {
             return await _context.Tag.Where(tag => id.Contains(tag.Id)).ToListAsync();
+        }
+
+        public async Task<Tag?> SelectByNameAsync(string name)
+        {
+            return await _context.Tag.FirstOrDefaultAsync(tag => tag.Name == name);
         }
     }
 }

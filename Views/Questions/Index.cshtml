@@ -6,20 +6,41 @@
 
 <div class="m-auto default-page">
     <a asp-area="" asp-controller="Questions" asp-action="Create" class="btn btn-primary float-sm-end d-sm-flex d-none" role="button">Ask question</a>
-    <h3 class="text-sm-start text-center">Questions</h3>
-    <p class="text-sm-start text-center">Faça perguntas, compartilhe conhecimento e junte-se à comunidade de aprendizado.</p>
-    <form asp-controller="Questions" asp-action="Index" method="get" role="search" class="row gx-2 justify-content-sm-start justify-content-center">
-        <div class="col-auto">
-            <input name="title" value="@ViewData["SearchString"]" class="form-control" type="search" placeholder="Filter" aria-label="Search" style="min-width:300px">
-        </div>
-        <div class="col-auto">
-            <button type="submit" class="btn btn-primary">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-                </svg>
-            </button>
-        </div>
-    </form>
+    @if (Model.TagInfo != null)
+    {
+        <h3 class="text-sm-start text-center text-capitalize">@Model.TagInfo.Name</h3>
+        <p class="text-sm-start text-center">@Model.TagInfo.DescriptionEN</p>
+        <form asp-controller="Questions" asp-action="Tag" method="get" id="@Model.TagInfo.Name" role="search" class="row gx-2 justify-content-sm-start justify-content-center">
+            <div class="col-auto">
+                <input name="title" value="@ViewData["SearchString"]" class="form-control" type="search" placeholder="Filter" aria-label="Search" style="min-width:300px">
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                    </svg>
+                </button>
+            </div>
+        </form>
+    }
+    else
+    {
+        <h3 class="text-sm-start text-center">Questions</h3>
+        <p class="text-sm-start text-center">Faça perguntas, compartilhe conhecimento e junte-se à comunidade de aprendizado.</p>
+        <form asp-controller="Questions" asp-action="Index" method="get" role="search" class="row gx-2 justify-content-sm-start justify-content-center">
+            <div class="col-auto">
+                <input name="title" value="@ViewData["SearchString"]" class="form-control" type="search" placeholder="Filter" aria-label="Search" style="min-width:300px">
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                    </svg>
+                </button>
+            </div>
+        </form>
+    }
+
     <div class="row justify-content-center d-flex d-sm-none mt-3">
         <div class="col-auto">
             <a asp-area="" asp-controller="Questions" asp-action="Create" class="btn btn-primary" role="button">Ask question</a>
@@ -49,67 +70,42 @@
     <div class="collapse mt-2" id="collapseExample">
         <div class="card">
             <div class="card-body">
+                @{
+                    var followingTag = string.Empty;
+                    var allTags = string.Empty;
+                    if (Model.TagInfo != null)
+                        followingTag = "checked";
+                    else
+                        allTags = "checked";
+                }
+
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" @allTags>
                     <label class="form-check-label" for="flexRadioDefault1">
                         All tags
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
                     <label class="form-check-label" for="flexRadioDefault2">
                         Followed tags
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" @followingTag>
                     <label class="form-check-label" for="flexRadioDefault2">
                         Following tags
                     </label>
                 </div>
                 <div class="mt-2">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                        <label class="form-check-label" for="inlineCheckbox1"><span class="badge" style="background-color: yellow; color: black">javascript</span></label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                        <label class="form-check-label" for="inlineCheckbox1"><span class="badge" style="background-color: yellow; color: black">javascript</span></label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                        <label class="form-check-label" for="inlineCheckbox1"><span class="badge" style="background-color: yellow; color: black">javascript</span></label>
-                    </div>
-
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                        <label class="form-check-label" for="inlineCheckbox1"><span class="badge" style="background-color: yellow; color: black">javascript</span></label>
-                    </div>
-
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                        <label class="form-check-label" for="inlineCheckbox1"><span class="badge" style="background-color: yellow; color: black">javascript</span></label>
-                    </div>
-
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                        <label class="form-check-label" for="inlineCheckbox1"><span class="badge" style="background-color: yellow; color: black">javascript</span></label>
-                    </div>
-
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                        <label class="form-check-label" for="inlineCheckbox1"><span class="badge" style="background-color: yellow; color: black">javascript</span></label>
-                    </div>
-
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                        <label class="form-check-label" for="inlineCheckbox1"><span class="badge" style="background-color: yellow; color: black">javascript</span></label>
-                    </div>
-
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                        <label class="form-check-label" for="inlineCheckbox1"><span class="badge" style="background-color: yellow; color: black">javascript</span></label>
-                    </div>
+                    @foreach (var tag in Model.Tags)
+                    {
+                        string isChecked = Model.TagInfo != null && tag.Name == Model.TagInfo.Name ? "checked" : "";
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="@tag.Name" value="@tag.Id" @isChecked>
+                            <label class="form-check-label" for="@tag.Name"><span class="badge" style="background-color: @tag.Color; color: @tag.InnerColor">@tag.Name</span></label>
+                        </div>
+                    }
                 </div>
             </div>
             <div class="card-footer text-body-secondary">
@@ -130,7 +126,7 @@
                     <div class="col-sm-10">
                         <p><a class="fs-5 link-offset-2 link-underline link-underline-opacity-0" href="#">@Html.Raw(item.Title)</a></p>
                         <p>@Html.Raw(description)</p>
-                        <a asp-area="" asp-controller="Questions" asp-action="Index"><span class="badge" style="background-color: yellow; color: black">@Html.DisplayFor(modelItem => item.Tag.Name)</span></a>
+                        <a asp-area="" asp-controller="Questions" asp-action="Tag" asp-route-id="@item.Tag.Name"><span class="badge" style="background-color: @item.Tag.Color; color: @item.Tag.InnerColor">@Html.DisplayFor(modelItem => item.Tag.Name)</span></a>
                         <div class="float-end mt-sm-0 mt-4">
                             <div class="d-block text-end">
                                 <span class="fw-light">13</span>
