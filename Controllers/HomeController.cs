@@ -14,34 +14,22 @@ using System.Security.Principal;
 
 namespace QuestionsAndAnswers.Controllers
 {
-    [Route("[action]")]
-    public class HomeController : Controller
+    public class HomeController(
+        ILogger<HomeController> logger,
+        IStringLocalizer<HomeController> stringLocalizer,
+        SignInManager<User> signInManager,
+        IEmailSender emailSender,
+        IHostEnvironment hostEnvironment,
+        TagService tagService,
+        UserService userService) : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        private readonly IStringLocalizer<HomeController> _stringLocalizer;
-        private readonly SignInManager<User> _signInManager;
-        private readonly IEmailSender _emailSender;
-        private readonly IHostEnvironment _hostEnvironment;
-        private readonly TagService _tagService;
-        private readonly UserService _userService;
-
-        public HomeController(
-            ILogger<HomeController> logger,
-            IStringLocalizer<HomeController> stringLocalizer,
-            SignInManager<User> signInManager,
-            IEmailSender emailSender,
-            IHostEnvironment hostEnvironment,
-            TagService tagService,
-            UserService userService)
-        {
-            _logger = logger;
-            _stringLocalizer = stringLocalizer;
-            _signInManager = signInManager;
-            _emailSender = emailSender;
-            _hostEnvironment = hostEnvironment;
-            _tagService = tagService;
-            _userService = userService;
-        }
+        private readonly ILogger<HomeController> _logger = logger;
+        private readonly IStringLocalizer<HomeController> _stringLocalizer = stringLocalizer;
+        private readonly SignInManager<User> _signInManager = signInManager;
+        private readonly IEmailSender _emailSender = emailSender;
+        private readonly IHostEnvironment _hostEnvironment = hostEnvironment;
+        private readonly TagService _tagService = tagService;
+        private readonly UserService _userService = userService;
 
         public IActionResult Index()
         {
@@ -52,7 +40,7 @@ namespace QuestionsAndAnswers.Controllers
         public IActionResult Login()
         {
             var alreadyLogged = _signInManager.IsSignedIn(User);
-            return alreadyLogged ? View("Index") : View(new LoginViewModel());
+            return alreadyLogged ? Redirect("Index") : View(new LoginViewModel());
         }
 
         [HttpPost]
@@ -80,7 +68,7 @@ namespace QuestionsAndAnswers.Controllers
                 else
                     Response.Cookies.Delete("username");
 
-            return loginSucceeded ? View("Index") : View(new LoginViewModel { UserName = model.UserName });
+            return loginSucceeded ? Redirect("Index") : View(new LoginViewModel { UserName = model.UserName });
         }
 
         public async Task<IActionResult> SignUp()
