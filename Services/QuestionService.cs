@@ -13,10 +13,16 @@ namespace QuestionsAndAnswers.Services
             _context = context;
         }
 
-        public async Task<IEnumerable<Question>> SelectByTitleAsync(string title)
+        public async Task<IEnumerable<Question>> SelectByTitleAsync(string title, bool includeAll = false)
         {
+            if (includeAll)
+                return await _context.Question.Where(x => string.IsNullOrEmpty(title) || x.Title.Contains(title))
+                    .Include(x => x.Tag)
+                    .Include(x => x.User)
+                    .ToListAsync();
+
             return await _context.Question.Where(x => string.IsNullOrEmpty(title) || x.Title.Contains(title))
-                .Include(x => x.Tag).ToListAsync();
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<Question>> SelectByTitleAndTagAsync(string title, int tagId)
