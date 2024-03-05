@@ -31,7 +31,7 @@ namespace QuestionsAndAnswers.Controllers
         public async Task<IActionResult> Index(string title)
         {
             @ViewData["SearchString"] = title;
-            var questions = await _questionsService.SelectByTitleAsync(title);
+            var questions = await _questionsService.SelectByTitleAsync(title, true);
             var tags = await _tagService.SelectAllAsync();
 
             var viewModel = new QuestionViewModel()

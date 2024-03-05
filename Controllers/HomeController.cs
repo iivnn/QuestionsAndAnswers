@@ -14,6 +14,7 @@ using System.Security.Principal;
 
 namespace QuestionsAndAnswers.Controllers
 {
+    [Route("[action]")]
     public class HomeController(
         ILogger<HomeController> logger,
         IStringLocalizer<HomeController> stringLocalizer,
@@ -31,16 +32,17 @@ namespace QuestionsAndAnswers.Controllers
         private readonly TagService _tagService = tagService;
         private readonly UserService _userService = userService;
 
+        [Route("/")]
         public IActionResult Index()
         {
             var alreadyLogged = _signInManager.IsSignedIn(User);
-            return alreadyLogged ? Redirect("/Questions/Index") : View();
+            return alreadyLogged ? Redirect("/Questions") : View();
         }
 
         public IActionResult Login()
         {
             var alreadyLogged = _signInManager.IsSignedIn(User);
-            return alreadyLogged ? Redirect("Index") : View(new LoginViewModel());
+            return alreadyLogged ? RedirectToAction("Index") : View(new LoginViewModel());
         }
 
         [HttpPost]
@@ -68,7 +70,7 @@ namespace QuestionsAndAnswers.Controllers
                 else
                     Response.Cookies.Delete("username");
 
-            return loginSucceeded ? Redirect("Index") : View(new LoginViewModel { UserName = model.UserName });
+            return loginSucceeded ? RedirectToAction(nameof(Index)) : View(new LoginViewModel { UserName = model.UserName });
         }
 
         public async Task<IActionResult> SignUp()
@@ -146,13 +148,47 @@ namespace QuestionsAndAnswers.Controllers
                 HttpContext.User = new GenericPrincipal(new GenericIdentity(string.Empty), null);
             }
 
-            return View("Index");
+            return RedirectToAction(nameof(Index));
         }
 
         [Authorize]
         public async Task<IActionResult> Profile()
         {
             var user = await _userService.SelectByUserNameAsync(User?.Identity?.Name!, true);
+
+            var tags = await _tagService.SelectAllAsync();
+
+            var tagsViewModel = new List<TagProfileViewModel>();
+
+            foreach (var tag in tags)
+            {
+                tagsViewModel.Add(new TagProfileViewModel()
+                {
+                    Name = tag.Name,
+                    Color = tag.Color,
+                    InnerColor = tag.InnerColor,
+                    Id = tag.Id,
+                    Checked = user.Tags.Contains(tag)
+                });
+            }
+
+            return View(new ProfileViewModel
+            {
+                UserName = user?.UserName!,
+                ImageName = user?.ImageName,
+                Tags = tagsViewModel,
+                About = user?.About,
+                Email = user?.Email!,
+                Questions = user?.Questions!
+            });
+        }
+
+        public async Task<IActionResult> Users(string? id)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+                return RedirectToAction(nameof(PageNotFound));
+
+            var user = await _userService.SelectByUserNameAsync(id, true);
 
             var tags = await _tagService.SelectAllAsync();
 
