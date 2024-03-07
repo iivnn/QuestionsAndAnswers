@@ -33,9 +33,19 @@ html {
     object-fit: cover;
 }
 
+.image-medium {
+    width: 45px;
+    height: 45px;
+    object-fit: cover;
+}
+
 .default-page {
     max-width: 900px;
     margin-top: 80px !important
+}
+
+.rounded-circle-btn {
+    border-radius: 50%;
 }
 
 ::-webkit-scrollbar {
