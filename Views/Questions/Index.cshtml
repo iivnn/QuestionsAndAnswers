@@ -124,7 +124,12 @@
                         <p class="fw-lighter text-end mx-sm-0 mx-2" style="font-size: 13px">0 answers</p>
                     </div>
                     <div class="col-sm-10">
-                        <p><a class="fs-5 link-offset-2 link-underline link-underline-opacity-0" href="#">@Html.Raw(item.Title)</a></p>
+                        <p>
+                            <a asp-area="" asp-controller="Questions" asp-action="Details" asp-route-id="@item.Id"
+                               class="fs-5 link-offset-2 link-underline link-underline-opacity-0">
+                                @Html.Raw(item.Title)
+                            </a>
+                        </p>
                         <p>@Html.Raw(description)</p>
                         <a asp-area="" asp-controller="Questions" asp-action="Tag" asp-route-id="@item.Tag.Name"><span class="badge" style="background-color: @item.Tag.Color; color: @item.Tag.InnerColor">@Html.DisplayFor(modelItem => item.Tag.Name)</span></a>
                         <div class="float-end mt-sm-0 mt-4">

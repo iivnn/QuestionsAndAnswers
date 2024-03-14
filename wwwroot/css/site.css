@@ -33,10 +33,44 @@ html {
     object-fit: cover;
 }
 
+.image-medium {
+    width: 45px;
+    height: 45px;
+    object-fit: cover;
+}
+
 .default-page {
     max-width: 900px;
     margin-top: 80px !important
 }
+
+.rounded-circle-btn {
+    border-radius: 50%;
+}
+
+.upvote-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    transition: filter 0.3s ease;
+    color: lightgreen
+}
+
+    .upvote-btn:hover {
+        filter: brightness(0.5);
+    }
+
+.downvote-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    transition: filter 0.3s ease;
+    color: lightcoral
+}
+
+    .downvote-btn:hover {
+        filter: brightness(0.5);
+    }
 
 ::-webkit-scrollbar {
     width: 14px;
@@ -54,5 +88,3 @@ html {
     ::-webkit-scrollbar-thumb:hover {
         background: rgba(120, 120, 120, 1);
     }
-
-

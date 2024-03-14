@@ -22,13 +22,19 @@ namespace QuestionsAndAnswers.Services
                     .ToListAsync();
 
             return await _context.Question.Where(x => string.IsNullOrEmpty(title) || x.Title.Contains(title))
-                .ToListAsync();
+                    .ToListAsync();
         }
 
-        public async Task<IEnumerable<Question>> SelectByTitleAndTagAsync(string title, int tagId)
+        public async Task<IEnumerable<Question>> SelectByTitleAndTagAsync(string title, int tagId, bool includeAll = false)
         {
+            if (includeAll)
+                return await _context.Question.Where(x => (string.IsNullOrEmpty(title) || x.Title.Contains(title)) && x.Tag.Id == tagId)
+                    .Include(x => x.Tag)
+                    .Include(x => x.User)
+                    .ToListAsync();
+
             return await _context.Question.Where(x => (string.IsNullOrEmpty(title) || x.Title.Contains(title)) && x.Tag.Id == tagId)
-                .Include(x => x.Tag).ToListAsync();
+                    .ToListAsync();
         }
     }
 }

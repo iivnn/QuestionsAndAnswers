@@ -55,7 +55,7 @@ namespace QuestionsAndAnswers.Controllers
             {
                 tag = await _tagService.SelectByNameAsync(id);
                 if (tag != null)
-                    questions = await _questionsService.SelectByTitleAndTagAsync(title, tag.Id);
+                    questions = await _questionsService.SelectByTitleAndTagAsync(title, tag.Id, true);
                 else
                     return View("~/Views/Home/PageNotFound.cshtml");
             }
@@ -79,7 +79,7 @@ namespace QuestionsAndAnswers.Controllers
                 return NotFound();
             }
 
-            var question = await _context.Question
+            Question? question = await _context.Question
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (question == null)
             {
