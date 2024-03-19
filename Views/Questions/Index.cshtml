@@ -1,4 +1,6 @@
 ﻿@model QuestionsAndAnswers.Models.ViewModels.QuestionViewModel
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> signInManager
 
 @{
     ViewData["Title"] = "Index";
@@ -30,6 +32,8 @@
         <form asp-controller="Questions" asp-action="Index" method="get" role="search" class="row gx-2 justify-content-sm-start justify-content-center">
             <div class="col-auto">
                 <input name="title" value="@ViewData["SearchString"]" class="form-control" type="search" placeholder="Filter" aria-label="Search" style="min-width:300px">
+                <input name="option" value="@ViewData["Option"]" type="text" hidden>
+                <input name="tags" value="@ViewData["Tags"]" type="text" hidden>
             </div>
             <div class="col-auto">
                 <button type="submit" class="btn btn-primary">
@@ -48,7 +52,7 @@
     </div>
     <div class="row mt-sm-5 mt-3">
         <div class="col-sm-4 text-sm-start text-center">
-            <p class="fs-5">2,567,651 questions</p>
+            <p class="fs-5">@Model.TotalResults questions</p>
         </div>
         <div class="col-sm-8">
             <div class="btn-toolbar justify-content-center justify-content-sm-end" role="toolbar" aria-label="Toolbar with button groups">
@@ -73,43 +77,71 @@
                 @{
                     var followingTag = string.Empty;
                     var allTags = string.Empty;
+                    var followedTags = string.Empty;
+
                     if (Model.TagInfo != null)
                         followingTag = "checked";
                     else
-                        allTags = "checked";
+                    {
+                        string? option = ViewData["Option"]?.ToString() ?? null;
+                        if (option == null)
+                        {
+                            if (signInManager.IsSignedIn(User))
+                                followedTags = "checked";
+                            else
+                                allTags = "checked";
+                        }
+                        else if (option.Equals("allTags", StringComparison.OrdinalIgnoreCase))
+                        {
+                            allTags = "checked";
+                        }
+                        else if (option.Equals("followingTags", StringComparison.OrdinalIgnoreCase))
+                        {
+                            followingTag = "checked";
+                        }
+                        else if (option.Equals("followedTags", StringComparison.OrdinalIgnoreCase))
+                        {
+                            followedTags = "checked";
+                        }
+                    }
                 }
-
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" @allTags>
-                    <label class="form-check-label" for="flexRadioDefault1">
+                    <input class="form-check-input" type="radio" name="searchOption" id="allTags" @allTags>
+                    <label class="form-check-label" for="allTags">
                         All tags
                     </label>
                 </div>
+                @if (signInManager.IsSignedIn(User))
+                {
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="searchOption" id="followedTags" @followedTags>
+                        <label class="form-check-label" for="followedTags">
+                            Followed tags
+                        </label>
+                    </div>
+                }
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-                    <label class="form-check-label" for="flexRadioDefault2">
-                        Followed tags
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" @followingTag>
-                    <label class="form-check-label" for="flexRadioDefault2">
+                    <input class="form-check-input" type="radio" name="searchOption" id="followingTags" @followingTag>
+                    <label class="form-check-label" for="followingTags">
                         Following tags
                     </label>
                 </div>
                 <div class="mt-2">
+                    @{
+                        var tags = ViewData["Tags"]?.ToString()?.Split(',') ?? [];
+                    }
                     @foreach (var tag in Model.Tags)
                     {
-                        string isChecked = Model.TagInfo != null && tag.Name == Model.TagInfo.Name ? "checked" : "";
+                        string isChecked = tags.Any(x => x.Equals(tag.Name, StringComparison.CurrentCultureIgnoreCase)) ? "checked" : "";
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="@tag.Name" value="@tag.Id" @isChecked>
+                            <input class="form-check-input" type="checkbox" id="@tag.Name" value="@tag.Name" name="tagOption" @isChecked>
                             <label class="form-check-label" for="@tag.Name"><span class="badge" style="background-color: @tag.Color; color: @tag.InnerColor">@tag.Name</span></label>
                         </div>
                     }
                 </div>
             </div>
             <div class="card-footer text-body-secondary">
-                <button type="button" class="btn btn-primary btn-sm mt-2" style="width: 100px">Apply</button>
+                <button id="applyButton" type="button" class="btn btn-primary btn-sm mt-2" style="width: 100px">Apply</button>
             </div>
         </div>
     </div>
@@ -147,8 +179,7 @@
                             <p class="d-inline">
                                 <a asp-area="" asp-controller="Home" asp-action="Users" asp-route-id="@item.User.UserName" class="link-offset-2 link-underline link-underline-opacity-0">@item.User.UserName</a>
                             </p>
-                            <span clas="fw-bolder">3252</span>
-                            <span class="fw-light">asked 22 minutes ago</span>
+                            <span class="fw-light">@item.CreatedAt.FormatTimeDifference()</span>
                         </div>
                     </div>
                 </div>
@@ -167,3 +198,36 @@
         </ul>
     </nav>
 </div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        document.getElementById('applyButton').addEventListener("click", function (event) {
+            var selectedRadio = document.querySelector('input[name="searchOption"]:checked').id
+
+            if (selectedRadio === "allTags") {
+                window.location.href = "Questions?option=allTags";
+            }
+            else if (selectedRadio === "followedTags") {
+                window.location.href = "Questions?option=followedTags";
+            }
+            else if (selectedRadio === "followingTags") {
+                var selectedValues = [];
+                document.querySelectorAll('input[name="tagOption"]:checked').forEach(function (radio) {
+                    selectedValues.push(radio.value);
+                });
+
+                if (selectedValues.length < 1) {
+                    window.alert("É necessário selecionar ao menos uma tag.")
+                }
+                else {
+                    window.location.href = "Questions?option=followingTags&tags=" + encodeURIComponent(selectedValues.join(","));
+                }
+            }
+        });
+    </script>
+}

@@ -2,9 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QuestionsAndAnswers.Data;
+using QuestionsAndAnswers.Extensions;
 using QuestionsAndAnswers.Models;
 using QuestionsAndAnswers.Models.ViewModels;
 using QuestionsAndAnswers.Services;
+using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace QuestionsAndAnswers.Controllers
 {
@@ -16,7 +19,7 @@ namespace QuestionsAndAnswers.Controllers
         private readonly SignInManager<User> _signInManager;
 
         public QuestionsController(
-            QuestionsAndAnswersContext context, 
+            QuestionsAndAnswersContext context,
             QuestionService questionsService,
             TagService tagService,
             SignInManager<User> signInManager)
@@ -28,16 +31,58 @@ namespace QuestionsAndAnswers.Controllers
         }
 
         // GET: Questions
-        public async Task<IActionResult> Index(string title)
+        public async Task<IActionResult> Index(string title, string option, string tags)
         {
             @ViewData["SearchString"] = title;
-            var questions = await _questionsService.SelectByTitleAsync(title, true);
-            var tags = await _tagService.SelectAllAsync();
+
+            if (string.IsNullOrWhiteSpace(option))
+            {
+                if (_signInManager.IsSignedIn(User))
+                    option = "followedTags";
+                else
+                    option = "allTags";
+
+                return RedirectToAction("Index", new { title, option });
+            }
+
+            @ViewData["Option"] = option;
+            @ViewData["Tags"] = tags;
+
+            IEnumerable<Question>? questions = [];
+
+            if (string.IsNullOrWhiteSpace(option) || option.Equals("allTags", StringComparison.CurrentCultureIgnoreCase))
+                questions = await _questionsService.SelectByTitleAsync(title, true);
+            else if (option.Equals("followedTags", StringComparison.CurrentCultureIgnoreCase))
+            {
+                if (_signInManager.IsSignedIn(User))
+                {
+                    questions = await _questionsService.SelectByTitleAsync(title, true);
+                }
+                else
+                {
+                    return Redirect("/SignUp");
+                }
+            }
+            else if (option.Equals("followingTags", StringComparison.CurrentCultureIgnoreCase))
+            {
+                if (string.IsNullOrEmpty(tags))
+                    return Redirect("/PageNotFound");
+                else
+                {
+                    var tagsName = tags.Split(',');
+                    questions = await _questionsService.SelectByTitleAndTagsNameAsync(title, tagsName, true);
+                }
+            }
+            else
+                return Redirect("/PageNotFound");
+
+            var optionTags = await _tagService.SelectAllAsync();
 
             var viewModel = new QuestionViewModel()
             {
                 Questions = questions.ToList(),
-                Tags = tags.ToList()
+                Tags = optionTags.ToList(),
+                TotalResults = questions.Count().ToString("N0", CultureInfo.CreateSpecificCulture("en-US"))
             };
 
             return View(viewModel);
@@ -57,7 +102,7 @@ namespace QuestionsAndAnswers.Controllers
                 if (tag != null)
                     questions = await _questionsService.SelectByTitleAndTagAsync(title, tag.Id, true);
                 else
-                    return View("~/Views/Home/PageNotFound.cshtml");
+                    return Redirect("/PageNotFound");
             }
             var tags = await _tagService.SelectAllAsync();
 
