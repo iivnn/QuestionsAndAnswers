@@ -36,5 +36,17 @@ namespace QuestionsAndAnswers.Services
             return await _context.Question.Where(x => (string.IsNullOrEmpty(title) || x.Title.Contains(title)) && x.Tag.Id == tagId)
                     .ToListAsync();
         }
+
+        public async Task<IEnumerable<Question>> SelectByTitleAndTagsNameAsync(string title, string[] tagsName, bool includeAll = false)
+        {
+            if (includeAll)
+                return await _context.Question.Where(x => (string.IsNullOrEmpty(title) || x.Title.Contains(title)) && tagsName.Any(v => v == x.Tag.Name))
+                    .Include(x => x.Tag)
+                    .Include(x => x.User)
+                    .ToListAsync();
+
+            return await _context.Question.Where(x => (string.IsNullOrEmpty(title) || x.Title.Contains(title)) && tagsName.Any(v => v == x.Tag.Name))
+                    .ToListAsync();
+        }
     }
 }

@@ -13,7 +13,7 @@ namespace QuestionsAndAnswers.Models
         public Tag Tag{ get; set; } = default!;
         [Required]
         public User User { get; set; } = default!;
-        public DateTime? CreatedAt { get; protected set; } = null;
-        public DateTime? UpdatedAt { get; set; } = null;
+        public DateTime CreatedAt { get; protected set; } = DateTime.MinValue;
+        public DateTime UpdatedAt { get; set; } = DateTime.MinValue;
     }
 }
