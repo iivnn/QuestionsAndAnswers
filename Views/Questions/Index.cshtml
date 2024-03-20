@@ -179,7 +179,7 @@
                             <p class="d-inline">
                                 <a asp-area="" asp-controller="Home" asp-action="Users" asp-route-id="@item.User.UserName" class="link-offset-2 link-underline link-underline-opacity-0">@item.User.UserName</a>
                             </p>
-                            <span class="fw-light">@item.CreatedAt.FormatTimeDifference()</span>
+                            <span class="fw-light">@item.Added.FormatTimeDifference()</span>
                         </div>
                     </div>
                 </div>

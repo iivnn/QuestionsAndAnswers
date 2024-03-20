@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using QuestionsAndAnswers.Models;
+using QuestionsAndAnswers.Models.Interfaces;
 
 namespace QuestionsAndAnswers.Data
 {
@@ -9,35 +11,46 @@ namespace QuestionsAndAnswers.Data
         public QuestionsAndAnswersContext(DbContextOptions<QuestionsAndAnswersContext> options)
             : base(options)
         {
-        }
-
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            builder.Entity<User>()
-                .HasMany(e => e.Tags)
-                .WithMany()
-                .UsingEntity(j =>
-                {
-                    j.IndexerProperty<long>("Id");
-                    j.HasKey("Id");
-                    j.Property<DateTime>("CreatedAt").HasDefaultValueSql("CURRENT_TIMESTAMP");
-                })
-                .Property(b => b.CreatedAt)
-                .HasDefaultValueSql("getdate()");
-
-            builder.Entity<Question>()
-                .Property(b => b.CreatedAt)
-                .HasDefaultValueSql("getdate()");
-
-            builder.Entity<Tag>()
-                .Property(b => b.CreatedAt)
-                .HasDefaultValueSql("getdate()");
-
-            base.OnModelCreating(builder);
+            ChangeTracker.StateChanged += UpdateTimestamps!;
+            ChangeTracker.Tracked += UpdateTimestamps!;
         }
 
         public DbSet<User> User { get; set; } = default!;
         public DbSet<Question> Question { get; set; } = default!;
         public DbSet<Tag> Tag { get; set; } = default!;
+        public DbSet<Answer> Answer { get; set; } = default!;
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<User>()
+                .HasMany(e => e.FollowedTags)
+                .WithMany(e => e.Users)
+                .UsingEntity(j =>
+                {
+                    j.IndexerProperty<long>("Id");
+                    j.HasKey("Id");
+                });
+
+            base.OnModelCreating(builder);
+        }
+
+        private static void UpdateTimestamps(object sender, EntityEntryEventArgs e)
+        {
+            if (e.Entry.Entity is IHasTimestamps entityWithTimestamps)
+            {
+                switch (e.Entry.State)
+                {
+                    case EntityState.Deleted:
+                        entityWithTimestamps.Deleted = DateTime.UtcNow;
+                        break;
+                    case EntityState.Modified:
+                        entityWithTimestamps.Modified = DateTime.UtcNow;
+                        break;
+                    case EntityState.Added:
+                        entityWithTimestamps.Added = DateTime.UtcNow;
+                        break;
+                }
+            }
+        }
     }
 }
