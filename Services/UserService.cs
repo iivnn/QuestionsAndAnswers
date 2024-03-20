@@ -25,7 +25,7 @@ namespace QuestionsAndAnswers.Services
 #pragma warning disable CS8603 // Possível retorno de referência nula.
             if (includeAll)
                 return await _context.User.Where(user => user.UserName == userName)
-                    .Include(user => user.Tags)
+                    .Include(user => user.FollowedTags)
                     .Include(user => user.Questions)
                     .FirstOrDefaultAsync();
             else

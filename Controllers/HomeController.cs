@@ -107,7 +107,7 @@ namespace QuestionsAndAnswers.Controllers
                 {
                     var userSelectedTagsId = model.Tag.Split(",").Select(int.Parse).ToArray();
                     var userSelectedTags = await _tagService.SelectByIdsAsync(userSelectedTagsId);
-                    user.Tags = userSelectedTags.ToList();
+                    user.FollowedTags = userSelectedTags.ToList();
                     result = await _signInManager.UserManager.UpdateAsync(user);
                     if (result.Succeeded)
                     {
@@ -165,7 +165,7 @@ namespace QuestionsAndAnswers.Controllers
                     Color = tag.Color,
                     InnerColor = tag.InnerColor,
                     Id = tag.Id,
-                    Checked = user.Tags.Contains(tag)
+                    Checked = user.FollowedTags.Contains(tag)
                 });
             }
 
@@ -199,7 +199,7 @@ namespace QuestionsAndAnswers.Controllers
                     Color = tag.Color,
                     InnerColor = tag.InnerColor,
                     Id = tag.Id,
-                    Checked = user.Tags.Contains(tag)
+                    Checked = user.FollowedTags.Contains(tag)
                 });
             }
 
