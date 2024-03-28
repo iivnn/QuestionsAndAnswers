@@ -15,7 +15,7 @@ namespace QuestionsAndAnswers.Services
 
         public async Task<string?> SelectImageNameByUserNameAsync(string userName)
         {
-            return await _context.User.Where(user => user.UserName == userName).Select(user => user.ImageName).FirstOrDefaultAsync();
+            return await _context.Users.Where(user => user.UserName == userName).Select(user => user.ImageName).FirstOrDefaultAsync();
         }
 
         public async Task<User> SelectByUserNameAsync(string userName, bool includeAll = false)
@@ -24,12 +24,12 @@ namespace QuestionsAndAnswers.Services
 
 #pragma warning disable CS8603 // Possível retorno de referência nula.
             if (includeAll)
-                return await _context.User.Where(user => user.UserName == userName)
+                return await _context.Users.Where(user => user.UserName == userName)
                     .Include(user => user.FollowedTags)
                     .Include(user => user.Questions)
                     .FirstOrDefaultAsync();
             else
-                return await _context.User.Where(user => user.UserName == userName).FirstOrDefaultAsync();
+                return await _context.Users.Where(user => user.UserName == userName).FirstOrDefaultAsync();
 #pragma warning restore CS8603 // Possível retorno de referência nula.
         }
     }

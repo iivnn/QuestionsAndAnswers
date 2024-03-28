@@ -56,7 +56,7 @@ namespace QuestionsAndAnswers.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Tag",
+                name: "Tags",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -72,7 +72,7 @@ namespace QuestionsAndAnswers.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tag", x => x.Id);
+                    table.PrimaryKey("PK_Tags", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -182,7 +182,7 @@ namespace QuestionsAndAnswers.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Question",
+                name: "Questions",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
@@ -197,16 +197,16 @@ namespace QuestionsAndAnswers.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Question", x => x.Id);
+                    table.PrimaryKey("PK_Questions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Question_AspNetUsers_UserId",
+                        name: "FK_Questions_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Question_Tag_TagId",
+                        name: "FK_Questions_Tags_TagId",
                         column: x => x.TagId,
-                        principalTable: "Tag",
+                        principalTable: "Tags",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -230,15 +230,15 @@ namespace QuestionsAndAnswers.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_TagUser_Tag_FollowedTagsId",
+                        name: "FK_TagUser_Tags_FollowedTagsId",
                         column: x => x.FollowedTagsId,
-                        principalTable: "Tag",
+                        principalTable: "Tags",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Answer",
+                name: "Answers",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
@@ -252,16 +252,16 @@ namespace QuestionsAndAnswers.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Answer", x => x.Id);
+                    table.PrimaryKey("PK_Answers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Answer_AspNetUsers_UserId",
+                        name: "FK_Answers_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Answer_Question_QuestionId",
+                        name: "FK_Answers_Questions_QuestionId",
                         column: x => x.QuestionId,
-                        principalTable: "Question",
+                        principalTable: "Questions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -284,9 +284,9 @@ namespace QuestionsAndAnswers.Migrations
                 {
                     table.PrimaryKey("PK_Comment", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Comment_Answer_AnswerId",
+                        name: "FK_Comment_Answers_AnswerId",
                         column: x => x.AnswerId,
-                        principalTable: "Answer",
+                        principalTable: "Answers",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Comment_AspNetUsers_UserId",
@@ -295,20 +295,20 @@ namespace QuestionsAndAnswers.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Comment_Question_QuestionId",
+                        name: "FK_Comment_Questions_QuestionId",
                         column: x => x.QuestionId,
-                        principalTable: "Question",
+                        principalTable: "Questions",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Answer_QuestionId",
-                table: "Answer",
+                name: "IX_Answers_QuestionId",
+                table: "Answers",
                 column: "QuestionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Answer_UserId",
-                table: "Answer",
+                name: "IX_Answers_UserId",
+                table: "Answers",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -366,13 +366,13 @@ namespace QuestionsAndAnswers.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Question_TagId",
-                table: "Question",
+                name: "IX_Questions_TagId",
+                table: "Questions",
                 column: "TagId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Question_UserId",
-                table: "Question",
+                name: "IX_Questions_UserId",
+                table: "Questions",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -414,16 +414,16 @@ namespace QuestionsAndAnswers.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Answer");
+                name: "Answers");
 
             migrationBuilder.DropTable(
-                name: "Question");
+                name: "Questions");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Tag");
+                name: "Tags");
         }
     }
 }

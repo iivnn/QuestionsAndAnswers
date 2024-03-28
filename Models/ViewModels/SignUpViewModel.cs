@@ -13,7 +13,7 @@ namespace QuestionsAndAnswers.Models.ViewModels
         public string UserName { get; set; } = string.Empty;
         [MaxLength(1000)]
         public string About { get; set; } = string.Empty;
-        public string Tag { get; set; } = string.Empty;
-        public List<Tag> Tags { get; set; } = [];     
+        public string? Tag { get; set; } = string.Empty;
+        public List<Tag>? Tags { get; set; } = [];     
     }
 }

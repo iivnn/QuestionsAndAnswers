@@ -124,7 +124,7 @@ namespace QuestionsAndAnswers.Controllers
                 return NotFound();
             }
 
-            Question? question = await _context.Question
+            Question? question = await _context.Questions
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (question == null)
             {
@@ -165,7 +165,7 @@ namespace QuestionsAndAnswers.Controllers
                 return NotFound();
             }
 
-            var question = await _context.Question.FindAsync(id);
+            var question = await _context.Questions.FindAsync(id);
             if (question == null)
             {
                 return NotFound();
@@ -216,7 +216,7 @@ namespace QuestionsAndAnswers.Controllers
                 return NotFound();
             }
 
-            var question = await _context.Question
+            var question = await _context.Questions
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (question == null)
             {
@@ -231,10 +231,10 @@ namespace QuestionsAndAnswers.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            var question = await _context.Question.FindAsync(id);
+            var question = await _context.Questions.FindAsync(id);
             if (question != null)
             {
-                _context.Question.Remove(question);
+                _context.Questions.Remove(question);
             }
 
             await _context.SaveChangesAsync();
@@ -243,7 +243,7 @@ namespace QuestionsAndAnswers.Controllers
 
         private bool QuestionExists(long id)
         {
-            return _context.Question.Any(e => e.Id == id);
+            return _context.Questions.Any(e => e.Id == id);
         }
     }
 }

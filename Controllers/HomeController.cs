@@ -105,10 +105,13 @@ namespace QuestionsAndAnswers.Controllers
                 var result = await _signInManager.UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    var userSelectedTagsId = model.Tag.Split(",").Select(int.Parse).ToArray();
-                    var userSelectedTags = await _tagService.SelectByIdsAsync(userSelectedTagsId);
-                    user.FollowedTags = userSelectedTags.ToList();
-                    result = await _signInManager.UserManager.UpdateAsync(user);
+                    if(!string.IsNullOrEmpty(model.Tag))
+                    {
+                        var userSelectedTagsId = model.Tag.Split(",").Select(int.Parse).ToArray();
+                        var userSelectedTags = await _tagService.SelectByIdsAsync(userSelectedTagsId);
+                        user.FollowedTags = userSelectedTags.ToList();
+                        result = await _signInManager.UserManager.UpdateAsync(user);
+                    }
                     if (result.Succeeded)
                     {
                         var token = await _signInManager.UserManager.GenerateEmailConfirmationTokenAsync(user);

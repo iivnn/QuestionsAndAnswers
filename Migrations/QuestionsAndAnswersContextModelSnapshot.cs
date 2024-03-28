@@ -192,7 +192,7 @@ namespace QuestionsAndAnswers.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Answer");
+                    b.ToTable("Answers");
                 });
 
             modelBuilder.Entity("QuestionsAndAnswers.Models.Comment", b =>
@@ -274,7 +274,7 @@ namespace QuestionsAndAnswers.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Question");
+                    b.ToTable("Questions");
                 });
 
             modelBuilder.Entity("QuestionsAndAnswers.Models.Tag", b =>
@@ -316,7 +316,7 @@ namespace QuestionsAndAnswers.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tag");
+                    b.ToTable("Tags");
                 });
 
             modelBuilder.Entity("QuestionsAndAnswers.Models.User", b =>

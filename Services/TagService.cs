@@ -15,17 +15,17 @@ namespace QuestionsAndAnswers.Services
 
         public async Task<IEnumerable<Tag>> SelectAllAsync()
         {
-            return await _context.Tag.ToListAsync();
+            return await _context.Tags.ToListAsync();
         }
 
         public async Task<IEnumerable<Tag>> SelectByIdsAsync(params int[] id)
         {
-            return await _context.Tag.Where(tag => id.Contains(tag.Id)).ToListAsync();
+            return await _context.Tags.Where(tag => id.Contains(tag.Id)).ToListAsync();
         }
 
         public async Task<Tag?> SelectByNameAsync(string name)
         {
-            return await _context.Tag.FirstOrDefaultAsync(tag => tag.Name == name);
+            return await _context.Tags.FirstOrDefaultAsync(tag => tag.Name == name);
         }
     }
 }

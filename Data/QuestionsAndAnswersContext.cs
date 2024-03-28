@@ -15,10 +15,10 @@ namespace QuestionsAndAnswers.Data
             ChangeTracker.Tracked += UpdateTimestamps!;
         }
 
-        public DbSet<User> User { get; set; } = default!;
-        public DbSet<Question> Question { get; set; } = default!;
-        public DbSet<Tag> Tag { get; set; } = default!;
-        public DbSet<Answer> Answer { get; set; } = default!;
+        override public DbSet<User> Users { get; set; } = default!;
+        public DbSet<Question> Questions { get; set; } = default!;
+        public DbSet<Tag> Tags { get; set; } = default!;
+        public DbSet<Answer> Answers { get; set; } = default!;
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
