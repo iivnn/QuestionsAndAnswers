@@ -12,7 +12,7 @@ using QuestionsAndAnswers.Data;
 namespace QuestionsAndAnswers.Migrations
 {
     [DbContext(typeof(QuestionsAndAnswersContext))]
-    [Migration("20240326011258_Init")]
+    [Migration("20240402002535_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -322,6 +322,30 @@ namespace QuestionsAndAnswers.Migrations
                     b.ToTable("Tags");
                 });
 
+            modelBuilder.Entity("QuestionsAndAnswers.Models.TagUser", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<int>("FollowedTagsId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UsersId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FollowedTagsId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("TagUsers");
+                });
+
             modelBuilder.Entity("QuestionsAndAnswers.Models.User", b =>
                 {
                     b.Property<string>("Id")
@@ -402,30 +426,6 @@ namespace QuestionsAndAnswers.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-                });
-
-            modelBuilder.Entity("TagUser", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<int>("FollowedTagsId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UsersId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FollowedTagsId");
-
-                    b.HasIndex("UsersId");
-
-                    b.ToTable("TagUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -536,7 +536,7 @@ namespace QuestionsAndAnswers.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("TagUser", b =>
+            modelBuilder.Entity("QuestionsAndAnswers.Models.TagUser", b =>
                 {
                     b.HasOne("QuestionsAndAnswers.Models.Tag", null)
                         .WithMany()

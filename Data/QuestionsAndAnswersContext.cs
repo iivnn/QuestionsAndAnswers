@@ -19,17 +19,14 @@ namespace QuestionsAndAnswers.Data
         public DbSet<Question> Questions { get; set; } = default!;
         public DbSet<Tag> Tags { get; set; } = default!;
         public DbSet<Answer> Answers { get; set; } = default!;
+        public DbSet<TagUser> TagUsers { get; set; } = default!;
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<User>()
                 .HasMany(e => e.FollowedTags)
                 .WithMany(e => e.Users)
-                .UsingEntity(j =>
-                {
-                    j.IndexerProperty<long>("Id");
-                    j.HasKey("Id");
-                });
+                .UsingEntity<TagUser>();
 
             base.OnModelCreating(builder);
         }

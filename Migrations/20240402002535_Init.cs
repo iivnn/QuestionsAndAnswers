@@ -212,7 +212,7 @@ namespace QuestionsAndAnswers.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TagUser",
+                name: "TagUsers",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
@@ -222,15 +222,15 @@ namespace QuestionsAndAnswers.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TagUser", x => x.Id);
+                    table.PrimaryKey("PK_TagUsers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TagUser_AspNetUsers_UsersId",
+                        name: "FK_TagUsers_AspNetUsers_UsersId",
                         column: x => x.UsersId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_TagUser_Tags_FollowedTagsId",
+                        name: "FK_TagUsers_Tags_FollowedTagsId",
                         column: x => x.FollowedTagsId,
                         principalTable: "Tags",
                         principalColumn: "Id",
@@ -376,13 +376,13 @@ namespace QuestionsAndAnswers.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TagUser_FollowedTagsId",
-                table: "TagUser",
+                name: "IX_TagUsers_FollowedTagsId",
+                table: "TagUsers",
                 column: "FollowedTagsId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TagUser_UsersId",
-                table: "TagUser",
+                name: "IX_TagUsers_UsersId",
+                table: "TagUsers",
                 column: "UsersId");
         }
 
@@ -408,7 +408,7 @@ namespace QuestionsAndAnswers.Migrations
                 name: "Comment");
 
             migrationBuilder.DropTable(
-                name: "TagUser");
+                name: "TagUsers");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
