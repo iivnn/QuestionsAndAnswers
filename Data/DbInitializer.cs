@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Humanizer;
+using Microsoft.EntityFrameworkCore;
+using NLipsum.Core;
 using QuestionsAndAnswers.Models;
 
 namespace QuestionsAndAnswers.Data
@@ -900,6 +902,48 @@ namespace QuestionsAndAnswers.Data
 
                     context.SaveChanges();
 
+                    transaction.Commit();
+                }
+            }
+            #endregion
+
+            #region Questions
+            if (context.Questions != null)
+            {
+                if (!context.Questions.Any())
+                {
+                    using var transaction = context.Database.BeginTransaction();
+
+                    var nLipsum = new LipsumGenerator();
+
+                    var random = new Random();
+
+                    List<Question> questions = [];
+
+                    var users = context.Users!.ToList();
+
+                    var tags = context.Tags!.ToList();
+
+                    for (int i = 0; i < 200; i++) 
+                    {
+                        int randomUserIndex = random.Next(users.Count);
+                        int randomTagIndex = random.Next(tags.Count);
+                        int descriptionLength = random.Next(1, 7);
+
+                        Question question = new()
+                        {
+                            Title = nLipsum.GenerateLipsum(1, Features.Sentences, string.Empty).ApplyCase(LetterCasing.Sentence),
+                            Description = nLipsum.GenerateLipsum(descriptionLength),
+                            Tag = tags[randomTagIndex],
+                            User = users[randomUserIndex]
+                        };
+
+                        questions.Add(question);
+                    }
+
+                    context.Questions.AddRange(questions);
+
+                    context.SaveChanges();
                     transaction.Commit();
                 }
             }
