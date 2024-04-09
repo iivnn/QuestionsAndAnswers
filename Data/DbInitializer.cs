@@ -286,7 +286,7 @@ namespace QuestionsAndAnswers.Data
                         {
                             Id = Guid.NewGuid().ToString(),
                             About = "Just another user",
-                            ImageName = "",
+                            ImageName = "user123.jpg",
                             UserName = "user123",
                             NormalizedUserName = "USER123",
                             Email = "user123@example.com",
@@ -332,7 +332,7 @@ namespace QuestionsAndAnswers.Data
                         {
                             Id = Guid.NewGuid().ToString(),
                             About = "Music lover and aspiring musician 🎸",
-                            ImageName = "",
+                            ImageName = "rockstar.jpg",
                             UserName = "rockstar",
                             NormalizedUserName = "ROCKSTAR",
                             Email = "rockstar@example.com",
@@ -355,7 +355,7 @@ namespace QuestionsAndAnswers.Data
                         {
                             Id = Guid.NewGuid().ToString(),
                             About = "Gaming addict and eSports enthusiast 🎮",
-                            ImageName = "",
+                            ImageName = "gameon.jpg",
                             UserName = "gameon",
                             NormalizedUserName = "GAMEON",
                             Email = "gameon@example.com",
@@ -378,7 +378,7 @@ namespace QuestionsAndAnswers.Data
                         {
                             Id = Guid.NewGuid().ToString(),
                             About = "Foodie exploring the culinary world 🍔",
-                            ImageName = "",
+                            ImageName = "foodlover.jpg",
                             UserName = "foodlover",
                             NormalizedUserName = "FOODLOVER",
                             Email = "foodlover@example.com",
@@ -401,7 +401,7 @@ namespace QuestionsAndAnswers.Data
                         {
                             Id = Guid.NewGuid().ToString(),
                             About = "Travel enthusiast with a passion for exploring new cultures ✈️",
-                            ImageName = "",
+                            ImageName = "globetrotter.jpg",
                             UserName = "globetrotter",
                             NormalizedUserName = "GLOBETROTTER",
                             Email = "globetrotter@example.com",
@@ -424,7 +424,7 @@ namespace QuestionsAndAnswers.Data
                         {
                             Id = Guid.NewGuid().ToString(),
                             About = "Bookworm and literature enthusiast 📚",
-                            ImageName = "",
+                            ImageName = "bookworm.jpg",
                             UserName = "bookworm",
                             NormalizedUserName = "BOOKWORM",
                             Email = "bookworm@example.com",
@@ -447,7 +447,7 @@ namespace QuestionsAndAnswers.Data
                         {
                             Id = Guid.NewGuid().ToString(),
                             About = "Fitness enthusiast and gym rat 💪",
-                            ImageName = "",
+                            ImageName = "fitfreak.jpg",
                             UserName = "fitfreak",
                             NormalizedUserName = "FITFREAK",
                             Email = "fitfreak@example.com",
@@ -470,7 +470,7 @@ namespace QuestionsAndAnswers.Data
                         {
                             Id = Guid.NewGuid().ToString(),
                             About = "Tech enthusiast exploring the digital world!",
-                            ImageName = "",
+                            ImageName = "digital_nomad.jpg",
                             UserName = "digital_nomad",
                             NormalizedUserName = "DIGITAL_NOMAD",
                             Email = "digital_nomad@example.com",
@@ -493,7 +493,7 @@ namespace QuestionsAndAnswers.Data
                         {
                             Id = Guid.NewGuid().ToString(),
                             About = "Foodie on a culinary adventure!",
-                            ImageName = "",
+                            ImageName = "gourmet_explorer.jpg",
                             UserName = "gourmet_explorer",
                             NormalizedUserName = "GOURMET_EXPLORER",
                             Email = "gourmet_explorer@example.com",
@@ -516,7 +516,7 @@ namespace QuestionsAndAnswers.Data
                         {
                             Id = Guid.NewGuid().ToString(),
                             About = "Art lover creating beauty one stroke at a time!",
-                            ImageName = "",
+                            ImageName = "artistic_soul.jpg",
                             UserName = "artistic_soul",
                             NormalizedUserName = "ARTISTIC_SOUL",
                             Email = "artistic_soul@example.com",
@@ -539,7 +539,7 @@ namespace QuestionsAndAnswers.Data
                         {
                             Id = Guid.NewGuid().ToString(),
                             About = "Adventurous spirit seeking new horizons!",
-                            ImageName = "",
+                            ImageName = "wanderlust_86.jpg",
                             UserName = "wanderlust_86",
                             NormalizedUserName = "WANDERLUST_86",
                             Email = "wanderlust_86@example.com",
@@ -562,7 +562,7 @@ namespace QuestionsAndAnswers.Data
                         {
                             Id = Guid.NewGuid().ToString(),
                             About = "Bookworm lost in the pages of fantasy!",
-                            ImageName = "",
+                            ImageName = "fantasy_reader.jpg",
                             UserName = "fantasy_reader",
                             NormalizedUserName = "FANTASY_READER",
                             Email = "fantasy_reader@example.com",
@@ -585,7 +585,7 @@ namespace QuestionsAndAnswers.Data
                         {
                             Id = Guid.NewGuid().ToString(),
                             About = "Fitness enthusiast pushing boundaries!",
-                            ImageName = "",
+                            ImageName = "fit_frenzy.jpg",
                             UserName = "fit_frenzy",
                             NormalizedUserName = "FIT_FRENZY",
                             Email = "fit_frenzy@example.com",
@@ -608,7 +608,7 @@ namespace QuestionsAndAnswers.Data
                         {
                             Id = Guid.NewGuid().ToString(),
                             About = "Coffee addict fueled by caffeine and creativity!",
-                            ImageName = "",
+                            ImageName = "java_junkie.jpg",
                             UserName = "java_junkie",
                             NormalizedUserName = "JAVA_JUNKIE",
                             Email = "java_junkie@example.com",
@@ -631,7 +631,7 @@ namespace QuestionsAndAnswers.Data
                         {
                             Id = Guid.NewGuid().ToString(),
                             About = "Adventure seeker exploring the great outdoors!",
-                            ImageName = "",
+                            ImageName = "wild_wanderer.jpg",
                             UserName = "wild_wanderer",
                             NormalizedUserName = "WILD_WANDERER",
                             Email = "wild_wanderer@example.com",
@@ -654,7 +654,7 @@ namespace QuestionsAndAnswers.Data
                         {
                             Id = Guid.NewGuid().ToString(),
                             About = "Music lover dancing through life's rhythms!",
-                            ImageName = "",
+                            ImageName = "rhythm_rover.jpg",
                             UserName = "rhythm_rover",
                             NormalizedUserName = "RHYTHM_ROVER",
                             Email = "rhythm_rover@example.com",
@@ -677,7 +677,7 @@ namespace QuestionsAndAnswers.Data
                         {
                             Id = Guid.NewGuid().ToString(),
                             About = "Fashionista defining style with flair!",
-                            ImageName = "",
+                            ImageName = "style_savant.jpg",
                             UserName = "style_savant",
                             NormalizedUserName = "STYLE_SAVANT",
                             Email = "style_savant@example.com",
@@ -700,7 +700,7 @@ namespace QuestionsAndAnswers.Data
                         {
                             Id = Guid.NewGuid().ToString(),
                             About = "Nature enthusiast embracing the beauty of the wild!",
-                            ImageName = "",
+                            ImageName = "wilderness_wanderer.jpg",
                             UserName = "wilderness_wanderer",
                             NormalizedUserName = "WILDERNESS_WANDERER",
                             Email = "wilderness_wanderer@example.com",
@@ -723,39 +723,181 @@ namespace QuestionsAndAnswers.Data
 
                     var tagUsers = new TagUser[]
                     {
-                        new()
+                        new()//0
                         {
-                            Id = 1,
                             FollowedTagsId = 1,
                             UsersId = users[0].Id
                         },
                         new()
                         {
-                            Id = 2,
                             FollowedTagsId = 2,
                             UsersId = users[0].Id
                         },
                         new()
                         {
-                            Id = 3,
                             FollowedTagsId = 4,
                             UsersId = users[0].Id
                         },
                         new()
                         {
-                            Id = 4,
                             FollowedTagsId = 8,
                             UsersId = users[0].Id
                         },
                         new()
                         {
-                            Id = 5,
                             FollowedTagsId = 16,
                             UsersId = users[0].Id
+                        },
+                        new()//1
+                        {
+                            FollowedTagsId = 2,
+                            UsersId = users[1].Id
+                        },
+                        new()
+                        {
+                            FollowedTagsId = 7,
+                            UsersId = users[1].Id
+                        },
+                        new()
+                        {
+                            FollowedTagsId = 8,
+                            UsersId = users[1].Id
+                        },
+                        new()//2
+                        {
+                            FollowedTagsId = 1,
+                            UsersId = users[2].Id
+                        },
+                        new()
+                        {
+                            FollowedTagsId = 10,
+                            UsersId = users[2].Id
+                        },
+                        new()
+                        {
+                            FollowedTagsId = 11,
+                            UsersId = users[2].Id
+                        },
+                        new()
+                        {
+                            FollowedTagsId = 17,
+                            UsersId = users[2].Id
+                        },
+                        new()//3
+                        {
+                            FollowedTagsId = 11,
+                            UsersId = users[3].Id
+                        },
+                        new()
+                        {
+                            FollowedTagsId = 12,
+                            UsersId = users[3].Id
+                        },
+                        new()//4
+                        {
+                            FollowedTagsId = 1,
+                            UsersId = users[4].Id
+                        },
+                        new()
+                        {
+                            FollowedTagsId = 2,
+                            UsersId = users[4].Id
+                        },
+                        new()
+                        {
+                            FollowedTagsId = 3,
+                            UsersId = users[4].Id
+                        },
+                        new()
+                        {
+                            FollowedTagsId = 4,
+                            UsersId = users[4].Id
+                        },
+                        new()//5
+                        {
+                            FollowedTagsId = 3,
+                            UsersId = users[5].Id
+                        },
+                        new()
+                        {
+                            FollowedTagsId = 4,
+                            UsersId = users[5].Id
+                        },
+                        new()
+                        {
+                            FollowedTagsId = 11,
+                            UsersId = users[5].Id
+                        },
+                        new()
+                        {
+                            FollowedTagsId = 12,
+                            UsersId = users[5].Id
+                        },
+                        new()
+                        {
+                            FollowedTagsId = 13,
+                            UsersId = users[5].Id
+                        },
+                        new()
+                        {
+                            FollowedTagsId = 14,
+                            UsersId = users[5].Id
+                        },
+                        new()//6
+                        {
+                            FollowedTagsId = 4,
+                            UsersId = users[6].Id
+                        },
+                        new()
+                        {
+                            FollowedTagsId = 11,
+                            UsersId = users[6].Id
+                        },
+                        new()//7
+                        {
+                            FollowedTagsId = 3,
+                            UsersId = users[7].Id
+                        },
+                        new()
+                        {
+                            FollowedTagsId = 5,
+                            UsersId = users[7].Id
+                        },
+                        new()
+                        {
+                            FollowedTagsId = 7,
+                            UsersId = users[7].Id
+                        },
+                        new()
+                        {
+                            FollowedTagsId = 9,
+                            UsersId = users[7].Id
+                        },
+                        new()
+                        {
+                            FollowedTagsId = 11,
+                            UsersId = users[7].Id
+                        },
+                        new()//8
+                        {
+                            FollowedTagsId = 15,
+                            UsersId = users[8].Id
+                        },
+                        new()
+                        {
+                            FollowedTagsId = 16,
+                            UsersId = users[8].Id
+                        },
+                        new()
+                        {
+                            FollowedTagsId = 17,
+                            UsersId = users[8].Id
                         }
                     };
 
                     context.Users.AddRange(users);
+                    context.TagUsers.AddRange(tagUsers);
+
                     context.SaveChanges();
 
                     transaction.Commit();
