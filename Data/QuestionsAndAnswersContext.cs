@@ -28,6 +28,50 @@ namespace QuestionsAndAnswers.Data
                 .WithMany(e => e.Users)
                 .UsingEntity<TagUser>();
 
+            builder.Entity<User>()
+                .HasMany(e => e.Questions)
+                .WithOne(e => e.User);
+
+            builder.Entity<User>()
+                .HasMany(e => e.Comments)
+                .WithOne(e => e.User);
+
+            builder.Entity<User>()
+                .HasMany(e => e.QuestionsLiked)
+                .WithMany(e => e.UsersLike)
+                .UsingEntity<Dictionary<string, object>>(
+                    "UserLikedQuestion",
+                    j => j.HasOne<Question>().WithMany().HasForeignKey("QuestionId"),
+                    j => j.HasOne<User>().WithMany().HasForeignKey("UserId")
+                    .OnDelete(DeleteBehavior.NoAction));
+
+            builder.Entity<User>()
+                .HasMany(e => e.QuestionsDisliked)
+                .WithMany(e => e.UsersDislike)
+                .UsingEntity<Dictionary<string, object>>(
+                    "UserDislikedQuestion",
+                    j => j.HasOne<Question>().WithMany().HasForeignKey("QuestionId"),
+                    j => j.HasOne<User>().WithMany().HasForeignKey("UserId")
+                    .OnDelete(DeleteBehavior.NoAction));
+
+            builder.Entity<User>()
+                .HasMany(e => e.CommentsLiked)
+                .WithMany(e => e.UsersLike)
+                .UsingEntity<Dictionary<string, object>>(
+                    "UserLikedComment",
+                    j => j.HasOne<Comment>().WithMany().HasForeignKey("CommentId"),
+                    j => j.HasOne<User>().WithMany().HasForeignKey("UserId")
+                    .OnDelete(DeleteBehavior.NoAction));
+
+            builder.Entity<User>()
+                .HasMany(e => e.CommentsDisliked)
+                .WithMany(e => e.UsersDislike)
+                .UsingEntity<Dictionary<string, object>>(
+                "UserDislikedComment",
+                j => j.HasOne<Comment>().WithMany().HasForeignKey("CommentId"),
+                j => j.HasOne<User>().WithMany().HasForeignKey("UserId")
+                    .OnDelete(DeleteBehavior.NoAction));
+
             base.OnModelCreating(builder);
         }
 

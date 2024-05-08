@@ -11,6 +11,8 @@ namespace QuestionsAndAnswers.Models
         public Tag Tag{ get; set; } = null!;
         public int TagId { get; set; }
         public User User { get; set; } = null!;
+        public List<User> UsersLike { get; set; } = null!;
+        public List<User> UsersDislike { get; set; } = null!;
         public List<Answer> Answers { get; set; } = [];
         public List<Comment> Comments { get; set; } = [];
         public DateTime Added { get; set; } = DateTime.MinValue;
